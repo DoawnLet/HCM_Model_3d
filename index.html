@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Triển lãm ảo 3D: Tư tưởng Hồ Chí Minh về Đại đoàn kết dân tộc</title>
+    <!-- Google Fonts: Outfit for modern UI, Playfair Display for Vietnamese traditional scroll headers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;0,800;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- 3D Canvas Container -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="overlay-screen">
+      <div class="loader-content">
+        <div class="loader-lotus"></div>
+        <h2>Đang tải Không gian Triển lãm 3D...</h2>
+        <div class="progress-bar-container">
+          <div id="loading-progress" class="progress-bar-fill"></div>
+        </div>
+        <p id="loading-status">
+          Đang khởi tạo các phòng trưng bày chuyên đề...
+        </p>
+      </div>
+    </div>
+
+    <!-- Main Menu Screen -->
+    <div id="main-menu" class="overlay-screen active">
+      <div class="menu-card glass">
+        <div class="lotus-emblem"></div>
+        <h1 class="game-title">
+          TRIỂN LÃM ẢO<br /><span class="highlight">ĐẠI ĐOÀN KẾT</span>
+        </h1>
+        <p class="game-subtitle">
+          Hành trình tham quan học tập Tư tưởng Hồ Chí Minh về Đại đoàn kết dân
+          tộc qua không gian 3D tương tác
+        </p>
+
+        <div class="menu-instructions">
+          <h3>HƯỚNG DẪN DI CHUYỂN:</h3>
+          <div class="controls-guide">
+            <div class="guide-item">
+              <span class="key-cap">W</span>
+              <span class="key-cap">A</span>
+              <span class="key-cap">S</span>
+              <span class="key-cap">D</span>
+              <span>/</span>
+              <span class="key-cap">↑</span>
+              <span class="key-cap">←</span>
+              <span class="key-cap">↓</span>
+              <span class="key-cap">→</span>
+              <p>Di chuyển Nhân vật</p>
+            </div>
+            <div class="guide-item">
+              <span class="key-cap long">SPACE</span>
+              <p>Nhảy qua vật cản</p>
+            </div>
+          </div>
+          <p class="mobile-note">
+            Trên điện thoại: Sử dụng cần điều khiển Joystick ảo ở góc trái màn
+            hình.
+          </p>
+        </div>
+
+        <button id="start-game-btn" class="btn primary-btn pulse-glow">
+          BẮT ĐẦU HÀNH TRÌNH
+        </button>
+      </div>
+    </div>
+
+    <!-- HUD (Heads-Up Display) -->
+    <div id="game-hud" class="hud-container hidden">
+      <!-- Top Stats Panel -->
+      <div class="hud-top">
+        <!-- Quest / Guidance Panel -->
+        <div class="hud-stat glass" id="quest-panel-hud">
+          <span class="stat-label">NHIỆM VỤ:</span>
+          <span id="quest-text" class="stat-value">Đang tải...</span>
+        </div>
+
+        <div class="hud-stat glass" id="progress-panel">
+          <span class="stat-label">ĐOÀN KẾT:</span>
+          <span id="unity-progress-text" class="stat-value">0/5</span>
+          <div class="mini-progress-track">
+            <div id="unity-progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side Controls HUD -->
+      <div class="hud-side-controls">
+        <div class="hud-quality glass">
+          <span class="quality-label">CHẤT LƯỢNG</span>
+          <select
+            id="quality-select"
+            class="quality-select"
+            aria-label="Chất lượng đồ họa"
+          >
+            <option value="high">Cao</option>
+            <option value="medium" selected>Trung bình</option>
+            <option value="low">Thấp</option>
+          </select>
+        </div>
+        <button
+          id="audio-toggle-btn"
+          class="hud-btn glass"
+          title="Bật/Tắt âm thanh"
+        >
+          <span class="icon">🔊</span>
+        </button>
+        <button
+          id="help-toggle-btn"
+          class="hud-btn glass"
+          title="Xem hướng dẫn"
+        >
+          <span class="icon">❓</span>
+        </button>
+      </div>
+
+      <!-- Quest Checklist Mini Panel -->
+      <div class="hud-checklist glass">
+        <h4>5 MỐC NỘI DUNG:</h4>
+        <ul>
+          <li id="chk-vai_tro_dai_doan_ket" class="check-item">
+            <span class="bullet"></span>Vai trò của đại đoàn kết
+          </li>
+          <li id="chk-luc_luong_dai_doan_ket" class="check-item">
+            <span class="bullet"></span>Lực lượng khối đoàn kết
+          </li>
+          <li id="chk-dieu_kien_phuong_thuc" class="check-item">
+            <span class="bullet"></span>Điều kiện &amp; phương thức
+          </li>
+          <li id="chk-mat_tran_dan_toc_thong_nhat" class="check-item">
+            <span class="bullet"></span>Mặt trận dân tộc thống nhất
+          </li>
+          <li id="chk-ket_luan" class="check-item">
+            <span class="bullet"></span>Kết luận
+          </li>
+        </ul>
+      </div>
+
+      <!-- Proximity Interaction Prompt -->
+      <div id="interaction-prompt" class="hud-prompt hidden bounce">
+        <div class="prompt-content">
+          <span class="prompt-key">🖱️</span>
+          <span class="prompt-text"
+            >Click vào tranh: <span id="target-pedestal-name">Gian hàng</span></span
+          >
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Lesson & Quiz Dialog (Newspaper UI) -->
+    <div id="quiz-dialog" class="overlay-screen hidden">
+      <div class="scroll-container glass-scroll">
+        <div class="scroll-body">
+          <button id="close-quiz-btn" class="close-btn" title="Quay lại vườn">
+            &times;
+          </button>
+          <div class="scroll-content">
+            <header class="article-header">
+              <div id="article-eyebrow" class="article-eyebrow">
+                ẤN PHẨM ĐẶC BIỆT • TÀI LIỆU LỊCH SỬ
+              </div>
+              <div class="article-title-wrap">
+                <h2 id="class-title">VAI TRÒ CỦA ĐẠI ĐOÀN KẾT TOÀN DÂN TỘC</h2>
+              </div>
+              <div class="article-meta-row">
+                <span id="article-meta">Số đặc biệt: Tư tưởng Hồ Chí Minh</span>
+                <span id="article-subtitle">Thứ Ba, Ngày 22 tháng 10 năm 2024</span>
+                <span>Giá: 500 Đồng</span>
+              </div>
+            </header>
+
+            <div class="article-layout">
+              <div class="article-left">
+                <div class="article-image-card">
+                  <img
+                    id="class-image"
+                    src="./assets/doan-ket.jpg"
+                    alt="Ảnh minh họa đại đoàn kết"
+                    class="article-image"
+                  />
+                  <div id="class-image-caption" class="article-caption">Ảnh tư liệu: Đại hội đại biểu toàn dân tộc.</div>
+                </div>
+
+                <section class="learning-section summary-box">
+                  <blockquote>
+                    <p id="class-quote">
+                      “Đoàn kết là một chính sách dân tộc, không phải là một thủ đoạn chính trị.”
+                    </p>
+                  </blockquote>
+                  <h3>TÓM TẮT NỘI DUNG:</h3>
+                  <p id="class-summary">
+                    Trong tư tưởng Hồ Chí Minh, đại đoàn kết toàn dân tộc giữ vị trí đặc biệt quan trọng và là vấn đề có ý nghĩa chiến lược đối với cách mạng Việt Nam.
+                  </p>
+                </section>
+
+                <div class="details-box summary-box" id="class-details"></div>
+              </div>
+
+              <div class="article-right">
+                <div class="article-quote-card">
+                  <blockquote class="newspaper-quote">
+                    <p>
+                      “Đoàn kết, đoàn kết, đại đoàn kết.<br />
+                      Thành công, thành công, đại thành công.”
+                    </p>
+                  </blockquote>
+                </div>
+
+                <div class="article-note-card">
+                  <h4>C. Điều kiện thắng lợi</h4>
+                  <p>
+                    Dân là gốc, nhân dân là chủ thể của cách mạng. Mọi lực lượng và đường lối đều phải xuất phát từ lợi ích của nhân dân.
+                  </p>
+                </div>
+
+                <div class="article-note-card">
+                  <h4>D. Xây dựng và Bảo vệ Tổ quốc</h4>
+                  <p>
+                    Đoàn kết giúp phát triển kinh tế, giữ vững ổn định chính trị, xây dựng văn hóa, bảo vệ chủ quyền quốc gia, tăng cường đồng thuận xã hội.
+                  </p>
+                </div>
+
+                <section class="quiz-section">
+                  <h3 class="quiz-question-title">THỬ THÁCH MỞ KHÓA:</h3>
+                  <p id="quiz-question">Câu hỏi sẽ hiển thị ở đây?</p>
+                  <div id="quiz-options" class="options-grid">
+                    <!-- Answer buttons will be generated dynamically -->
+                  </div>
+                  <p id="quiz-feedback" class="quiz-feedback-msg hidden"></p>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Victory Screen Overlay -->
+    <div id="victory-screen" class="overlay-screen hidden">
+      <div class="victory-card glass-scroll">
+        <div class="scroll-wood top"></div>
+        <div class="scroll-body text-center">
+          <div class="congrats-star"></div>
+          <h1 class="victory-title">ĐẠI ĐOÀN KẾT TOÀN DÂN</h1>
+          <p class="victory-subtitle">
+            Bạn đã thắp sáng thành công ngọn lửa đoàn kết của cả 5 mốc bài học!
+          </p>
+
+          <div class="scroll-content gold-border">
+            <p class="victory-quote-header">TƯ TƯỞNG HỒ CHÍ MINH:</p>
+            <blockquote class="victory-quote">
+              <p>
+                “Đoàn kết, đoàn kết, đại đoàn kết.<br />
+                Thành công, thành công, đại thành công!”
+              </p>
+            </blockquote>
+          </div>
+
+          <div class="victory-stats">
+            <div class="stat-box">
+              <span class="lbl">TỔNG ĐIỂM</span>
+              <span id="final-score" class="val">500</span>
+            </div>
+            <div class="stat-box">
+              <span class="lbl">DANH HIỆU</span>
+              <span class="val highlight">Đại sứ Đoàn Kết</span>
+            </div>
+          </div>
+
+          <button id="replay-btn" class="btn primary-btn pulse-glow">
+            CHƠI LẠI
+          </button>
+        </div>
+        <div class="scroll-wood bottom"></div>
+      </div>
+    </div>
+
+    <!-- Audio Element (Placeholder fallback or local synthesizer) -->
+    <!-- We will use Web Audio API to synthesize retro notes for actions to ensure it works offline without audio files -->
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
