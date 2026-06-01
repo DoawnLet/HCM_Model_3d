@@ -1,3 +1,60 @@
+function parseTextWithLinks(text, container) {
+  // Regex to match markdown links: [link text](url)
+  const mdLinkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = mdLinkRegex.exec(text)) !== null) {
+    const plainText = text.substring(lastIndex, match.index);
+    if (plainText) {
+      container.appendChild(document.createTextNode(plainText));
+    }
+
+    const linkText = match[1];
+    const linkUrl = match[2];
+    const a = document.createElement("a");
+    a.href = linkUrl;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.textContent = linkText;
+    a.className = "newspaper-link";
+    container.appendChild(a);
+
+    lastIndex = mdLinkRegex.lastIndex;
+  }
+
+  const remainingText = text.substring(lastIndex);
+  if (remainingText) {
+    // Check for any raw URLs that are not formatted as markdown links
+    const rawUrlRegex = /(https?:\/\/[^\s()]+)/g;
+    let urlLastIndex = 0;
+    let urlMatch;
+    
+    while ((urlMatch = rawUrlRegex.exec(remainingText)) !== null) {
+      const subPlainText = remainingText.substring(urlLastIndex, urlMatch.index);
+      if (subPlainText) {
+        container.appendChild(document.createTextNode(subPlainText));
+      }
+      
+      const url = urlMatch[1];
+      const a = document.createElement("a");
+      a.href = url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.textContent = url;
+      a.className = "newspaper-link";
+      container.appendChild(a);
+      
+      urlLastIndex = rawUrlRegex.lastIndex;
+    }
+    
+    const subRemainingText = remainingText.substring(urlLastIndex);
+    if (subRemainingText) {
+      container.appendChild(document.createTextNode(subRemainingText));
+    }
+  }
+}
+
 export class UIManager {
   constructor(callbacks) {
     this.callbacks = callbacks; // callbacks: { onStartGame, onReplay, onAudioToggle }
@@ -182,14 +239,14 @@ export class UIManager {
             dropCap.className = "drop-cap";
             dropCap.textContent = section.paragraphs[0].trim().charAt(0).toUpperCase();
             const leadText = document.createElement("p");
-            leadText.textContent = section.paragraphs[0].slice(1);
+            parseTextWithLinks(section.paragraphs[0].trim().slice(1), leadText);
             leadRow.appendChild(dropCap);
             leadRow.appendChild(leadText);
             sectionEl.appendChild(leadRow);
 
             section.paragraphs.slice(1).forEach((paragraph) => {
               const p = document.createElement("p");
-              p.textContent = paragraph;
+              parseTextWithLinks(paragraph, p);
               sectionEl.appendChild(p);
             });
           }

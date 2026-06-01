@@ -56,9 +56,11 @@ export const CLASS_DATA = [
             {
                 title: 'a) Chủ thể của khối đại đoàn kết toàn dân tộc',
                 paragraphs: [
-                    'Đối tượng rộng lớn: Bao gồm toàn thể nhân dân Việt Nam, không phân biệt giai cấp, dân tộc, tôn giáo, lứa tuổi, giới tính, chính kiến, cả trong nước và kiều bào nước ngoài.',
+                    'Không gian và đối tượng rộng lớn: Khối đại đoàn kết bao gồm toàn thể nhân dân Việt Nam, không phân biệt giai cấp, tầng lớp, dân tộc, tôn giáo, tín ngưỡng, lứa tuổi, giới tính, thành phần xã hội, chính kiến, dù là người đang ở trong nước hay kiều bào đang sinh sống ở nước ngoài.',
                     'Khái niệm "Nhân dân" toàn diện: Vừa là từng con người cụ thể, vừa là tập hợp đông đảo quần chúng nhân dân lao động - động lực chính của cách mạng.',
-                    'Chính sách mở rộng tối đa: Chủ trương xóa bỏ mọi định kiến, hướng tới tương lai: “Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và phục vụ nhân dân thì ta đoàn kết với họ”.'
+                    'Chính sách mở rộng tối đa: Chủ trương xóa bỏ mọi định kiến, hướng tới tương lai: “Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và phục vụ nhân dân thì ta đoàn kết với họ”.',
+                    'Ví dụ thực tế (Năm 2024): Chương trình "Xuân Quê hương 2024" được tổ chức quy mô lớn tại TP.HCM với sự tham gia của hơn 1.500 kiều bào từ khắp nơi trên thế giới trở về. Tại đây, lãnh đạo Đảng và Nhà nước đã khẳng định kiều bào là bộ phận không thể tách rời của khối đại đoàn kết dân tộc. Tính đến năm 2024, kiều bào đã đầu tư hơn 420 dự án tại Việt Nam với tổng vốn hàng tỷ USD, đồng thời đóng góp rất lớn về trí tuệ khoa học, công nghệ cao cho đất nước.',
+                    'Link: [Báo Điện tử Chính phủ](https://baochinhphu.vn/kieu-bao-la-bo-phan-khong-the-tach-roi-cua-khoi-dai-doan-ket-toan-dan-toc-102159135.htm)'
                 ]
             },
             {
@@ -116,8 +118,9 @@ export const CLASS_DATA = [
             {
                 title: 'd) Niềm tin vững chắc vào nhân dân',
                 paragraphs: [
-                    'Dân là gốc cách mạng: Tin tưởng tuyệt đối vào sức mạnh vô địch, tinh thần cách mạng và trí tuệ vô bờ bến của quần chúng nhân dân.',
-                    'Tránh xa bệnh quan liêu: Cán bộ phải gắn bó mật thiết với quần chúng; tránh xa các bệnh quan liêu, mệnh lệnh, xa rời nhân dân.'
+                    'Niềm tin vững chắc vào nhân dân: Phải quán triệt sâu sắc nguyên tắc "Nước lấy dân làm gốc". Người cán bộ phải tin tưởng tuyệt đối vào sức mạnh vô địch, tinh thần cách mạng và trí tuệ vô bờ bến của quần chúng nhân dân; tuyệt đối không được sa vào bệnh quan liêu, mệnh lệnh, xa rời quần chúng.',
+                    'Ví dụ thực tế (Giai đoạn 2021 - 2022): Trong đợt bùng phát đại dịch COVID-19, mô hình "Tổ COVID cộng đồng" được triển khai mạnh mẽ trên cả nước. Hàng vạn tổ tự quản với sự tham gia tự nguyện của chính người dân tại các con hẻm, khu dân cư đã đi từng ngõ, gõ từng nhà để hỗ trợ truy vết, phân phát lương thực, giám sát y tế. Đây là minh chứng rõ nhất cho việc tin vào dân, dựa vào sức mạnh tự quản của nhân dân để vượt qua khủng hoảng.',
+                    'Link: [Báo Quân đội nhân dân](https://www.qdnd.vn/y-te/cac-van-de/to-covid-cong-dong-la-chan-chong-dich-hieu-qua-671577)'
                 ]
             }
         ],
@@ -147,7 +150,10 @@ export const CLASS_DATA = [
                 title: 'a) Mặt trận dân tộc thống nhất',
                 paragraphs: [
                     'Sự cụ thể hóa bằng tổ chức: Khối đại đoàn kết chỉ trở thành sức mạnh thực tế khi được tổ chức khoa học thành một khối vững chắc thông qua Mặt trận dân tộc thống nhất.',
-                    'Nơi hội tụ sức mạnh: Là ngôi nhà chung quy tụ các tổ chức chính trị, giáo phái, đoàn thể và cá nhân yêu nước. Tùy từng thời kỳ mà Mặt trận có tên gọi khác nhau để tập hợp lực lượng: Phản đế đồng minh (1930), Việt Minh (1941), Liên Việt (1951), Tổ quốc Việt Nam (1955)...'
+                    'Nơi hội tụ sức mạnh: Là ngôi nhà chung quy tụ các tổ chức chính trị, giáo phái, đoàn thể và cá nhân yêu nước. Tùy từng thời kỳ mà Mặt trận có tên gọi khác nhau để tập hợp lực lượng: Phản đế đồng minh (1930), Việt Minh (1941), Liên Việt (1951), Tổ quốc Việt Nam (1955)...',
+                    'Thực chất của Mặt trận: Mặc dù có nhiều tên gọi khác nhau nhưng thực chất chỉ là một tổ chức chính trị - xã hội nhằm tập hợp đông đảo các giai cấp, tầng lớp, dân tộc, tôn giáo, đảng phái, các tổ chức, cá nhân yêu nước ở trong và ngoài nước, phấn đấu vì mục tiêu chung là độc lập, thống nhất của Tổ quốc và tự do, hạnh phúc của nhân dân.',
+                    'Ví dụ thực tế (Năm 2024): Ngay sau khi siêu bão Yagi (Bão số 3) càn quét và gây thiệt hại nặng nề cho các tỉnh miền Bắc vào tháng 9/2024, Ủy ban Trung ương Mặt trận Tổ quốc Việt Nam đã ra lời kêu gọi ủng hộ đồng bào bị thiệt hại. Chỉ trong một thời gian ngắn, Mặt trận đã tiếp nhận hàng ngàn tỷ đồng cùng nhu yếu phẩm từ các cơ quan, doanh nghiệp, các tổ chức tôn giáo, đồng bào trong nước và kiều bào nước ngoài, kịp thời phân phối đến vùng lũ.',
+                    'Link: [Báo Tuổi trẻ](https://tuoitre.vn/hon-1-000-ti-dong-ung-ho-dong-bao-thiet-hai-do-bao-so-3-20240914180955013.htm)'
                 ]
             },
             {
