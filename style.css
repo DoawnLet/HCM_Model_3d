@@ -1331,6 +1331,23 @@ canvas {
   color: var(--primary-red);
 }
 
+/* Hyperlink styling for the premium newspaper layout */
+.newspaper-link {
+  color: #8b1111;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.newspaper-link:hover {
+  color: var(--primary-gold-hover, #b45309);
+  text-decoration-color: var(--primary-gold-hover, #b45309);
+  text-shadow: 0 0 8px rgba(217, 119, 6, 0.15);
+}
+
 /* Responsiveness overrides */
 @media (max-width: 768px) {
   .menu-card {
