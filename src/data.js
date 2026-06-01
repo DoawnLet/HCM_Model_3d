@@ -8,54 +8,23 @@ export const CLASS_DATA = [
         image: './assets/doan-ket.jpg',
         imageCaption: 'Ảnh tư liệu: Đại hội đại biểu toàn dân tộc.',
         quote: '“Đoàn kết là một chính sách dân tộc, không phải là một thủ đoạn chính trị.”',
-        summary: 'Trong tư tưởng của Hồ Chí Minh, đại đoàn kết toàn dân tộc giữ vị trí đặc biệt quan trọng và là vấn đề có ý nghĩa chiến lược đối với cách mạng Việt Nam. Người khẳng định rằng đoàn kết là sức mạnh, là nhân tố quyết định mọi thắng lợi của dân tộc.',
+        summary: 'Trong tư tưởng của Hồ Chí Minh, đại đoàn kết toàn dân tộc giữ vị trí đặc biệt quan trọng và là vấn đề có ý nghĩa chiến lược đối với cách mạng Việt Nam.',
         sections: [
             {
-                title: 'a. Đại đoàn kết là vấn đề chiến lược của cách mạng',
+                title: 'a) Đại đoàn kết toàn dân tộc là vấn đề có ý nghĩa chiến lược, quyết định thành công của cách mạng',
                 paragraphs: [
-                    'Hồ Chí Minh cho rằng đại đoàn kết không phải là sách lược tạm thời mà là chiến lược lâu dài, xuyên suốt trong toàn bộ tiến trình cách mạng Việt Nam. Từ đấu tranh giành độc lập dân tộc, kháng chiến chống ngoại xâm đến xây dựng chủ nghĩa xã hội đều cần sức mạnh đoàn kết của toàn dân.'
-                ],
-                quote: '“Đoàn kết là một chính sách dân tộc, không phải là một thủ đoạn chính trị.”',
-                conclusion: 'Điều đó cho thấy đoàn kết dân tộc phải được thực hiện lâu dài, bền vững và trở thành nhiệm vụ hàng đầu của cách mạng.'
-            },
-            {
-                title: 'b. Đại đoàn kết tạo nên sức mạnh to lớn',
-                paragraphs: [
-                    'Sức mạnh của dân tộc không chỉ nằm ở kinh tế hay quân sự mà còn nằm ở tinh thần đoàn kết của nhân dân. Khi mọi tầng lớp nhân dân cùng chung mục tiêu và ý chí thì sẽ tạo nên sức mạnh vô cùng lớn lao.',
-                    'Trong lịch sử Việt Nam, nhờ đoàn kết mà dân tộc ta chiến thắng thực dân Pháp, đánh bại đế quốc Mỹ, bảo vệ độc lập dân tộc, xây dựng đất nước sau chiến tranh.'
-                ],
-                bullets: [
-                    'chiến thắng thực dân Pháp',
-                    'đánh bại đế quốc Mỹ',
-                    'bảo vệ độc lập dân tộc',
-                    'xây dựng đất nước sau chiến tranh'
+                    'Tính chất chiến lược lâu dài: Hồ Chí Minh khẳng định đại đoàn kết là đường lối chiến lược xuyên suốt tiến trình cách mạng, không phải là thủ đoạn chính trị nhất thời hay biện pháp tình thế.',
+                    'Tổng kết quy luật lịch sử: Người đúc rút bài học xương máu của dân tộc: Đoàn kết thì độc lập, tự do; chia rẽ thì bị nước ngoài xâm lấn.',
+                    'Nhân tố biến đổi lực lượng: Đại đoàn kết là nhân tố then chốt chuyển hóa lực lượng, giúp một dân tộc nhỏ bé đánh bại các đế quốc sừng sỏ.'
                 ],
                 quote: '“Đoàn kết, đoàn kết, đại đoàn kết. Thành công, thành công, đại thành công.”'
             },
             {
-                title: 'c. Đại đoàn kết là điều kiện quyết định thắng lợi của cách mạng',
+                title: 'b) Đại đoàn kết toàn dân tộc là một mục tiêu, nhiệm vụ hàng đầu của cách mạng Việt Nam',
                 paragraphs: [
-                    'Theo Hồ Chí Minh, cách mạng là sự nghiệp của quần chúng nhân dân. Nếu không tập hợp được nhân dân thì cách mạng không thể thành công.',
-                    'Người cho rằng dân là gốc của nước, nhân dân là chủ thể của cách mạng, mọi đường lối chính sách đều phải vì lợi ích của nhân dân.'
-                ],
-                bullets: [
-                    'dân là gốc của nước',
-                    'nhân dân là chủ thể của cách mạng',
-                    'mọi đường lối chính sách đều phải vì lợi ích của nhân dân'
-                ],
-                conclusion: 'Do đó, muốn cách mạng thắng lợi phải biết tập hợp và phát huy sức mạnh của toàn dân tộc.'
-            },
-            {
-                title: 'd. Đại đoàn kết góp phần xây dựng và bảo vệ Tổ quốc',
-                paragraphs: [
-                    'Trong thời kỳ hòa bình, đoàn kết dân tộc tiếp tục giữ vai trò quan trọng trong phát triển kinh tế, giữ vững ổn định chính trị, xây dựng đời sống văn hóa, bảo vệ chủ quyền quốc gia.',
-                    'Đoàn kết giúp tăng sự đồng thuận xã hội, củng cố niềm tin của nhân dân đối với Đảng và Nhà nước.'
-                ],
-                bullets: [
-                    'phát triển kinh tế',
-                    'giữ vững ổn định chính trị',
-                    'xây dựng đời sống văn hóa',
-                    'bảo vệ chủ quyền quốc gia'
+                    'Sợi chỉ đỏ xuyên suốt: Đại đoàn kết không phải khẩu hiệu chung chung mà là mục tiêu tự thân, xuyên suốt mọi chủ trương, đường lối của Đảng.',
+                    'Mục đích tối cao: Hồ Chí Minh khẳng định rõ mục đích của Đảng là: “Đoàn kết toàn dân, phụng sự Tổ quốc”.',
+                    'Nhiệm vụ hàng đầu: Đảng và hệ thống chính trị phải tuyên truyền, giáo dục để quần chúng tự giác, chủ động đứng vào hàng ngũ đoàn kết.'
                 ]
             }
         ],
@@ -75,47 +44,30 @@ export const CLASS_DATA = [
     },
     {
         id: 'luc_luong_dai_doan_ket',
-        title: '2. Lực lượng của khối đại đoàn kết',
+        title: '2. Lực lượng của khối đại đoàn kết toàn dân tộc',
         icon: '👥',
         color: 0x0ea5e9, // Bright Sky Blue (matches Room 2 position)
         hexColor: '#0ea5e9',
         image: './assets/Luc-Luong.png',
         imageCaption: 'Ảnh minh họa: Giai cấp công nhân, nông dân và tầng lớp trí thức là nòng cốt của khối đại đoàn kết.',
-        quote: '“Ai có tài, có đức, có lòng phụng sự Tổ quốc và nhân dân thì ta đoàn kết with họ.”',
-        summary: 'Hồ Chí Minh chủ trương tập hợp tất cả những người Việt Nam yêu nước vào khối đại đoàn kết dân tộc. Người cho rằng bất kỳ ai có lòng yêu nước, mong muốn độc lập dân tộc và phát triển đất nước đều là thành viên của khối đoàn kết.',
+        quote: '“Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và phục vụ nhân dân thì ta đoàn kết với họ.”',
+        summary: 'Khối đại đoàn kết toàn dân tộc bao gồm toàn thể nhân dân Việt Nam, lấy liên minh công nhân - nông dân - trí thức làm nền tảng dưới sự lãnh đạo của Đảng.',
         sections: [
             {
-                title: 'a. Nền tảng của khối đại đoàn kết',
+                title: 'a) Chủ thể của khối đại đoàn kết toàn dân tộc',
                 paragraphs: [
-                    'Nền tảng của khối đại đoàn kết là liên minh công nhân, nông dân, trí thức. Đây là lực lượng giữ vai trò nòng cốt trong cách mạng Việt Nam.',
-                    'Công nhân: Giai cấp công nhân là lực lượng lãnh đạo cách mạng thông qua vai trò của Đảng Cộng sản.',
-                    'Nông dân: Nông dân là lực lượng đông đảo nhất trong xã hội Việt Nam, có vai trò rất quan trọng trong đấu tranh cách mạng và xây dựng đất nước.',
-                    'Trí thức: Trí thức góp phần phát triển khoa học, giáo dục, kỹ thuật, văn hóa, quản lý xã hội.'
-                ],
-                bullets: [
-                    'công nhân',
-                    'nông dân',
-                    'trí thức'
+                    'Đối tượng rộng lớn: Bao gồm toàn thể nhân dân Việt Nam, không phân biệt giai cấp, dân tộc, tôn giáo, lứa tuổi, giới tính, chính kiến, cả trong nước và kiều bào nước ngoài.',
+                    'Khái niệm "Nhân dân" toàn diện: Vừa là từng con người cụ thể, vừa là tập hợp đông đảo quần chúng nhân dân lao động - động lực chính của cách mạng.',
+                    'Chính sách mở rộng tối đa: Chủ trương xóa bỏ mọi định kiến, hướng tới tương lai: “Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và phục vụ nhân dân thì ta đoàn kết với họ”.'
                 ]
             },
             {
-                title: 'b. Các lực lượng khác trong khối đại đoàn kết',
+                title: 'b) Nền tảng của khối đại đoàn kết toàn dân tộc',
                 paragraphs: [
-                    'Ngoài liên minh công – nông – trí thức, Hồ Chí Minh còn chủ trương đoàn kết: thanh niên, phụ nữ, doanh nhân, tiểu thương, đồng bào các dân tộc thiểu số, đồng bào có tôn giáo, người Việt Nam ở nước ngoài.',
-                    'Người nhấn mạnh: dân tộc nào cũng bình đẳng, tôn giáo nào cũng được tôn trọng, mọi người đều có quyền đóng góp cho đất nước.'
-                ],
-                bullets: [
-                    'dân tộc nào cũng bình đẳng',
-                    'tôn giáo nào cũng được tôn trọng',
-                    'mọi người đều có quyền đóng góp cho đất nước'
+                    'Cơ cấu chặt chẽ: Có hạt nhân và nền móng vững chắc là liên minh công nhân - nông dân - trí thức và các tầng lớp nhân dân lao động khác.',
+                    'Hình tượng "Nền gốc": Công nông là “gốc” của cây, là “nền móng” của nhà. Móng có chắc nhà mới đứng vững, gốc có sâu cây mới tốt tươi.',
+                    'Hạt nhân lãnh đạo: Sự đoàn kết nhất trí tuyệt đối trong nội bộ Đảng Cộng sản là “hạt nhân” quyết định sức mạnh lãnh đạo của khối đại đoàn kết.'
                 ]
-            },
-            {
-                title: 'c. Chính sách khoan dung và hòa hợp dân tộc',
-                paragraphs: [
-                    'Hồ Chí Minh có tinh thần khoan dung rất lớn. Người chủ trương: xóa bỏ hận thù, đoàn kết những người từng lầm đường, tạo điều kiện để họ đóng góp cho dân tộc.'
-                ],
-                quote: '“Ai có tài, có đức, có lòng phụng sự Tổ quốc và nhân dân thì ta đoàn kết với họ.”'
             }
         ],
         quiz: {
@@ -131,43 +83,41 @@ export const CLASS_DATA = [
     },
     {
         id: 'dieu_kien_phuong_thuc',
-        title: '3. Điều kiện và phương thức xây dựng khối đại đoàn kết',
+        title: '3. Điều kiện để xây dựng khối đại đoàn kết toàn dân tộc',
         icon: '🔑',
         color: 0x7c3aed, // Purple Accent (matches Room 3 position)
         hexColor: '#7c3aed',
         image: './assets/p_3.jpg',
         imageCaption: 'Ảnh tư liệu: Đại biểu các tầng lớp nhân dân trong khối đại đoàn kết.',
         quote: '“Dân là gốc của nước. Cách mạng là sự nghiệp của quần chúng nhân dân.”',
-        summary: 'Xây dựng khối đại đoàn kết dân tộc đòi hỏi phải kế thừa truyền thống dân tộc, tin tưởng nhân dân, bảo đảm quyền lợi chính đáng của dân và thực hiện bằng các phương thức tuyên truyền, hiệp thương dân chủ.',
+        summary: 'Để đại đoàn kết toàn dân tộc thực sự biến thành sức mạnh vật chất trong thực tiễn, cần hội tụ đủ 4 điều kiện cốt lõi: tìm điểm quy tụ chung, phát huy truyền thống dân tộc, lòng khoan dung độ lượng và niềm tin vững chắc vào nhân dân.',
         sections: [
             {
-                title: 'a. Điều kiện xây dựng khối đại đoàn kết',
+                title: 'a) Tìm điểm quy tụ chung (Điểm tương đồng)',
                 paragraphs: [
-                    'Phải kế thừa truyền thống yêu nước và nhân nghĩa của dân tộc: Dân tộc Việt Nam có truyền thống yêu nước, đoàn kết, tương thân tương ái. Đây là cơ sở tinh thần quan trọng để xây dựng khối đại đoàn kết.',
-                    'Phải có lòng khoan dung và tin vào nhân dân: Hồ Chí Minh luôn tin tưởng vào sức mạnh và khả năng của nhân dân. Người yêu cầu: tôn trọng nhân dân, lắng nghe nhân dân, gần gũi nhân dân. Đồng thời cần có tinh thần khoan dung để đoàn kết rộng rãi mọi tầng lớp.',
-                    'Phải bảo đảm quyền lợi chính đáng của nhân dân: Muốn đoàn kết lâu dài phải chăm lo đời sống vật chất, đời sống tinh thần, quyền tự do dân chủ, lợi ích thiết thực của nhân dân.',
-                    'Phải có sự lãnh đạo đúng đắn của Đảng: Đảng giữ vai trò lãnh đạo khối đại đoàn kết. Tuy nhiên Đảng phải trong sạch, vững mạnh, gắn bó với nhân dân, hoạt động vì lợi ích của dân tộc và nhân dân.'
-                ],
-                bullets: [
-                    'yêu nước, đoàn kết, tương thân tương ái',
-                    'tôn trọng, lắng nghe, gần gũi nhân dân',
-                    'chăm lo đời sống vật chất và tinh thần của dân',
-                    'Đảng trong sạch, vững mạnh, gắn bó mật thiết với dân'
+                    'Lợi ích tối cao làm trọng tâm: Đặt lợi ích tối cao của dân tộc — độc lập, tự do, chủ quyền và toàn vẹn lãnh thổ — lên trên hết và trước hết.',
+                    'Hài hòa mối quan hệ: Xử lý đúng đắn và hài hòa mối quan hệ giữa lợi ích chung của quốc gia với lợi ích riêng chính đáng của từng tầng lớp.'
                 ]
             },
             {
-                title: 'b. Phương thức xây dựng khối đại đoàn kết',
+                title: 'b) Phát huy truyền thống của dân tộc',
                 paragraphs: [
-                    'Tuyên truyền, vận động và giáo dục nhân dân: Cần giải thích để nhân dân hiểu mục tiêu cách mạng, lợi ích chung của dân tộc, trách nhiệm công dân.',
-                    'Thực hiện hiệp thương dân chủ: Các lực lượng trong xã hội cần tôn trọng lẫn nhau, bàn bạc dân chủ, cùng thống nhất hành động.',
-                    'Kết hợp hài hòa các lợi ích: Phải giải quyết đúng đắn mối quan hệ giữa lợi ích cá nhân, lợi ích tập thể, lợi ích dân tộc.',
-                    'Đoàn kết lâu dài, chân thành: Đoàn kết phải chân thành, tin cậy, giúp đỡ nhau cùng tiến bộ, tránh đoàn kết hình thức.'
-                ],
-                bullets: [
-                    'tuyên truyền mục tiêu cách mạng, trách nhiệm công dân',
-                    'hiệp thương dân chủ, tôn trọng lẫn nhau',
-                    'kết hợp hài hòa lợi ích cá nhân, tập thể và dân tộc',
-                    'đoàn kết chân thành, tin cậy, giúp nhau cùng tiến bộ'
+                    'Kế thừa truyền thống lâu đời: Kế thừa và phát triển mạnh mẽ lòng yêu nước, tinh thần nhân nghĩa và sự yêu thương đùm bọc lẫn nhau.',
+                    'Cơ sở tinh thần vững chắc: Sức mạnh đại đoàn kết được hun đúc qua hàng ngàn năm lịch sử đấu tranh gian khổ dựng nước và giữ nước.'
+                ]
+            },
+            {
+                title: 'c) Lòng khoan dung, độ lượng',
+                paragraphs: [
+                    'Thấm nhuần tinh thần nhân văn: Tin tưởng vào phần lương tri của mỗi người, sẵn sàng mở rộng vòng tay đón nhận người lầm đường biết hối cải.',
+                    'Quy tụ mọi nguồn lực: Xóa bỏ định kiến, hướng tới tương lai để quy tụ tối đa mọi nguồn lực cho sự nghiệp xây dựng và bảo vệ Tổ quốc.'
+                ]
+            },
+            {
+                title: 'd) Niềm tin vững chắc vào nhân dân',
+                paragraphs: [
+                    'Dân là gốc cách mạng: Tin tưởng tuyệt đối vào sức mạnh vô địch, tinh thần cách mạng và trí tuệ vô bờ bến của quần chúng nhân dân.',
+                    'Tránh xa bệnh quan liêu: Cán bộ phải gắn bó mật thiết với quần chúng; tránh xa các bệnh quan liêu, mệnh lệnh, xa rời nhân dân.'
                 ]
             }
         ],
@@ -184,52 +134,28 @@ export const CLASS_DATA = [
     },
     {
         id: 'mat_tran_dan_toc_thong_nhat',
-        title: '4. Mặt trận dân tộc thống nhất',
+        title: '4. Hình thức, nguyên tắc tổ chức của khối đại đoàn kết toàn dân tộc - Mặt trận dân tộc thống nhất',
         icon: '🕊️',
         color: 0x16a34a, // Green
         hexColor: '#16a34a',
         image: './assets/p_4.jpg',
         imageCaption: 'Ảnh tư liệu: Đại hội đại biểu Mặt trận Tổ quốc Việt Nam.',
         quote: '“Mặt trận là tổ chức tập hợp rộng rãi các tầng lớp nhân dân, là cầu nối giữa Đảng, Nhà nước và quần chúng.”',
-        summary: 'Mặt trận dân tộc thống nhất là hình thức tổ chức tiêu biểu của khối đại đoàn kết, quy tụ mọi tầng lớp nhân dân yêu nước để đấu tranh giành độc lập và xây dựng Tổ quốc.',
+        summary: 'Mặt trận dân tộc thống nhất là hình thức tổ chức tiêu biểu của khối đại đoàn kết, quy tụ mọi tầng lớp, lực lượng yêu nước nhằm biến nhận thức thành sức mạnh thực tế của cách mạng.',
         sections: [
             {
-                title: 'a. Khái niệm và vai trò',
+                title: 'a) Mặt trận dân tộc thống nhất',
                 paragraphs: [
-                    'Mặt trận dân tộc thống nhất là hình thức tổ chức tiêu biểu của khối đại đoàn kết, tập hợp rộng rãi mọi tầng lớp nhân dân nhằm phát huy sức mạnh tổng hợp của toàn dân tộc trong sự nghiệp cách mạng.',
-                    'Mặt trận có vai trò tập hợp các lực lượng yêu nước, phát huy sức mạnh dân tộc, tăng cường đoàn kết nhân dân, hỗ trợ thực hiện mục tiêu cách mạng. Đồng thời Mặt trận còn là cầu nối giữa Đảng, Nhà nước và nhân dân.'
-                ],
-                bullets: [
-                    'tập hợp rộng rãi các tầng lớp nhân dân yêu nước',
-                    'phát huy sức mạnh toàn dân trong sự nghiệp cách mạng',
-                    'cầu nối vững chắc giữa Đảng, Nhà nước và nhân dân'
+                    'Sự cụ thể hóa bằng tổ chức: Khối đại đoàn kết chỉ trở thành sức mạnh thực tế khi được tổ chức khoa học thành một khối vững chắc thông qua Mặt trận dân tộc thống nhất.',
+                    'Nơi hội tụ sức mạnh: Là ngôi nhà chung quy tụ các tổ chức chính trị, giáo phái, đoàn thể và cá nhân yêu nước. Tùy từng thời kỳ mà Mặt trận có tên gọi khác nhau để tập hợp lực lượng: Phản đế đồng minh (1930), Việt Minh (1941), Liên Việt (1951), Tổ quốc Việt Nam (1955)...'
                 ]
             },
             {
-                title: 'b. Nguyên tắc hoạt động của Mặt trận',
+                title: 'b) Nguyên tắc xây dựng và hoạt động của Mặt trận dân tộc thống nhất',
                 paragraphs: [
-                    'Hiệp thương dân chủ: Các tổ chức và cá nhân tham gia mặt trận đều bình đẳng, cùng bàn bạc, cùng thống nhất hành động.',
-                    'Đoàn kết lâu dài: Đoàn kết phải dựa trên lợi ích dân tộc, lợi ích nhân dân, mục tiêu độc lập và phát triển đất nước.',
-                    'Sự lãnh đạo của Đảng: Đảng lãnh đạo Mặt trận bằng đường lối đúng đắn, thuyết phục, vận động, nêu gương, không áp đặt hay xa rời quần chúng.'
-                ],
-                bullets: [
-                    'hiệp thương dân chủ, tôn trọng lẫn nhau',
-                    'đoàn kết lâu dài, tự nguyện, chân thành',
-                    'Đảng lãnh đạo bằng thuyết phục và nêu gương'
-                ]
-            },
-            {
-                title: 'c. Các hình thức mặt trận trong lịch sử Việt Nam',
-                paragraphs: [
-                    'Qua từng thời kỳ cách mạng có nhiều hình thức mặt trận khác nhau: Hội Phản đế Đồng minh (1930), Mặt trận Dân chủ Đông Dương (1936), Mặt trận Việt Minh (1941), Hội Liên Việt (1946) và Mặt trận Tổ quốc Việt Nam (1955 - nay).',
-                    'Hiện nay, Mặt trận Tổ quốc Việt Nam là tổ chức đại diện tiêu biểu cho khối đại đoàn kết toàn dân tộc.'
-                ],
-                bullets: [
-                    'Hội Phản đế Đồng minh (1930)',
-                    'Mặt trận Dân chủ Đông Dương (1936)',
-                    'Mặt trận Việt Minh (1941)',
-                    'Hội Liên Việt (1946)',
-                    'Mặt trận Tổ quốc Việt Nam (1955 - nay)'
+                    'Nguyên tắc lãnh đạo: Mặt trận được xây dựng trên liên minh công - nông - trí thức, đặt dưới sự lãnh đạo duy nhất của Đảng Cộng sản Việt Nam.',
+                    'Nguyên tắc hiệp thương dân chủ: Mọi quyết sách phải tuân thủ bàn bạc công khai, dân chủ, thuyết phục để đi đến nhất trí đồng thuận, không áp đặt mệnh lệnh hành chính.',
+                    'Phương châm ứng xử (“Cầu đồng tồn dị”): Đoàn kết lâu dài, chân thành. Lấy cái chung lớn lao (lợi ích dân tộc) làm nền tảng để dung hòa các khác biệt.'
                 ]
             }
         ],
@@ -246,47 +172,84 @@ export const CLASS_DATA = [
     },
     {
         id: 'ket_luan',
-        title: '5. Kết luận',
+        title: '5. Phương thức xây dựng khối đại đoàn kết toàn dân tộc',
         icon: '📝',
         color: 0xdc2626, // Red
         hexColor: '#dc2626',
         image: './assets/p_5.jpg',
-        imageCaption: 'Ảnh tư liệu: Đại hội đại biểu toàn dân tộc.',
-        quote: '“Đoàn kết, đoàn kết, đại đoàn kết. Thành công, thành công, đại thành công.”',
-        summary: 'Tư tưởng đại đoàn kết toàn dân tộc của Hồ Chí Minh là một hệ thống quan điểm có giá trị lý luận và thực tiễn sâu sắc, là bài học xuyên suốt tiến trình cách mạng Việt Nam.',
+        imageCaption: 'Ảnh tư liệu: Công tác dân vận và xây dựng khối đại đoàn kết toàn dân.',
+        quote: '“Dân vận kém thì việc gì cũng kém. Dân vận khéo thì việc gì cũng thành công.”',
+        summary: 'Hồ Chí Minh chỉ rõ các phương thức mang tính hệ thống để hiện thực hóa khối đại đoàn kết bao gồm: làm tốt công tác dân vận, tổ chức các đoàn thể quần chúng và hợp lực chặt chẽ trong hệ thống Mặt trận.',
         sections: [
             {
-                title: 'a. Giá trị lý luận và thực tiễn',
+                title: 'a) Công tác Dân vận (Vận động quần chúng)',
                 paragraphs: [
-                    'Theo Hồ Chí Minh, đoàn kết là sức mạnh, là điều kiện quyết định thắng lợi của cách mạng. Đại đoàn kết phải được xây dựng lâu dài và rộng rãi để tạo nên sức mạnh tổng hợp.'
-                ],
-                bullets: [
-                    'đoàn kết là sức mạnh',
-                    'đoàn kết là điều kiện quyết định thắng lợi của cách mạng',
-                    'đại đoàn kết phải được xây dựng lâu dài và rộng rãi'
+                    'Phương thức cốt lõi: Làm tốt công tác tuyên truyền, giải thích, giáo dục nhằm nâng cao giác ngộ chính trị cho nhân dân.',
+                    'Gắn liền quyền lợi và trách nhiệm: Giúp người dân hiểu rõ quyền lợi gắn liền với nghĩa vụ đối với sự nghiệp cách mạng chung.',
+                    'Bài học cốt lõi: “Dân vận kém thì việc gì cũng kém. Dân vận khéo thì việc gì cũng thành công.”'
                 ]
             },
             {
-                title: 'b. Ý nghĩa trong thời đại ngày nay',
+                title: 'b) Tổ chức các đoàn thể quần chúng',
                 paragraphs: [
-                    'Ngày nay, tư tưởng đó vẫn còn nguyên giá trị trong công cuộc xây dựng đất nước, phát triển kinh tế, bảo vệ chủ quyền quốc gia, củng cố khối đoàn kết dân tộc.'
-                ],
-                bullets: [
-                    'xây dựng đất nước',
-                    'phát triển kinh tế',
-                    'bảo vệ chủ quyền quốc gia',
-                    'củng cố khối đoàn kết dân tộc'
+                    'Tập hợp và tổ chức khoa học: Tập hợp nhân dân vào các tổ chức chính trị - xã hội phù hợp (Công đoàn, Nông dân, Phụ nữ, Thanh niên...).',
+                    'Bảo vệ quyền lợi chính đáng: Giúp người dân dễ dàng sinh hoạt, chia sẻ và bảo vệ quyền lợi hợp pháp của chính mình.',
+                    'Hình tượng nước và thuyền: Lực lượng toàn dân cực kỳ vĩ đại, ví như “nước có thể chở thuyền mà nước cũng có thể lật thuyền”, do đó bắt buộc phải tổ chức lại thành khối.'
                 ]
             },
             {
-                title: 'c. Trách nhiệm của mỗi công dân',
+                title: 'c) Hợp lực trong hệ thống Mặt trận',
                 paragraphs: [
-                    'Mỗi người cần nâng cao tinh thần đoàn kết, sống có trách nhiệm với cộng đồng, góp phần xây dựng một Việt Nam phát triển, giàu mạnh và văn minh.'
-                ],
-                bullets: [
-                    'nâng cao tinh thần đoàn kết',
-                    'sống có trách nhiệm với cộng đồng',
-                    'góp phần xây dựng một Việt Nam phát triển, giàu mạnh và văn minh'
+                    'Gắn kết hữu cơ: Các đoàn thể không hoạt động riêng rẽ mà liên kết chặt chẽ trong Mặt trận, làm cầu nối hai chiều giữa Đảng, Nhà nước và nhân dân.',
+                    'Bài học lịch sử sâu sắc: “Đồng bào tất cả các giai tầng, các đảng phái, các tôn giáo, các dân tộc đều phải đoàn kết chặt chẽ trong Mặt trận. Sức mạnh của chúng ta chính là ở sự đoàn kết ấy”.',
+                    'Vị trí chiến lược của Mặt trận: Mặt trận là nền, là gốc của sự đoàn kết. Đảng lãnh đạo cách mạng chính là bằng cách dựa vào Mặt trận để phát huy sức mạnh toàn dân.'
+                ]
+            }
+        ],
+        quiz: {
+            question: 'Theo Hồ Chí Minh, phương thức cốt lõi và khâu đầu tiên để hiện thực hóa khối đại đoàn kết là gì?',
+            options: [
+                'Công tác Dân vận (Vận động quần chúng)',
+                'Sử dụng mệnh lệnh hành chính từ trên xuống',
+                'Dựa hoàn toàn vào sự hỗ trợ tài chính từ bên ngoài',
+                'Chỉ tập hợp giai cấp thượng lưu trong xã hội'
+            ],
+            answer: 0
+        }
+    },
+    {
+        id: 'bai_hoc_ket_luan',
+        title: '6. Kết luận',
+        icon: '📝',
+        color: 0xe11d48, // Rose/pink-red accent for final room
+        hexColor: '#e11d48',
+        image: './assets/doan-ket.jpg',
+        imageCaption: 'Ảnh tư liệu: Khối đại đoàn kết toàn dân tộc vững chắc.',
+        quote: '“Đoàn kết, đoàn kết, đại đoàn kết. Thành công, thành công, đại thành công.”',
+        summary: 'Tư tưởng Hồ Chí Minh về đại đoàn kết toàn dân tộc là hệ thống quan điểm khoa học có giá trị sâu sắc, định hướng chiến lược quyết định mọi thắng lợi của cách mạng Việt Nam.',
+        sections: [
+            {
+                title: 'a) Ba giá trị cốt lõi của đại đoàn kết',
+                paragraphs: [
+                    'Đoàn kết là sức mạnh: Cội nguồn tạo nên sức mạnh vô địch, chuyển hóa lực lượng để chiến thắng mọi kẻ thù và vượt qua mọi lực cản lịch sử.',
+                    'Đoàn kết là điều kiện quyết định thắng lợi: Không có đại đoàn kết, cách mạng không thể tập hợp lực lượng và giành thắng lợi cuối cùng.',
+                    'Xây dựng lâu dài và rộng rãi: Được tổ chức bền vững, tự nguyện, có chiều sâu, không phân biệt thành phần xã hội nhằm quy tụ tối đa mọi nguồn lực.'
+                ]
+            },
+            {
+                title: 'b) Ý nghĩa trong bối cảnh hiện nay',
+                paragraphs: [
+                    'Phát triển kinh tế - xã hội: Huy động mọi nguồn lực trong và ngoài nước để đẩy mạnh công nghiệp hóa, hiện đại hóa đất nước.',
+                    'Bảo vệ chủ quyền quốc gia: Củng cố thế trận lòng dân, giữ vững độc lập, chủ quyền và toàn vẹn lãnh thổ quốc gia.',
+                    'Củng cố đồng thuận xã hội: Phát huy dân chủ xã hội chủ nghĩa, tăng cường mối quan hệ mật thiết giữa Đảng với nhân dân.'
+                ]
+            },
+            {
+                title: 'c) Trách nhiệm của mỗi cá nhân',
+                paragraphs: [
+                    'Nâng cao trách nhiệm: Tự giác học tập, rèn luyện đạo đức cách mạng, chống chủ nghĩa cá nhân, hẹp hòi.',
+                    'Xây dựng từ cơ sở: Sống có trách nhiệm với cộng đồng, bao dung, đặt lợi ích tập thể và quốc gia lên trên hết.',
+                    'Hành động thiết thực: Tích cực tham gia các phong trào thi đua yêu nước, xây dựng Việt Nam phồn vinh, hạnh phúc và văn minh.'
                 ]
             }
         ],
@@ -294,9 +257,9 @@ export const CLASS_DATA = [
             question: 'Ý nghĩa thực tiễn quan trọng nhất của tư tưởng đại đoàn kết Hồ Chí Minh trong thời đại ngày nay là gì?',
             options: [
                 'Chỉ có giá trị trong thời kỳ chiến tranh bảo vệ đất nước',
-                'Là bài học cốt lõi để xây dựng, phát triển kinh tế và bảo vệ chủ quyền quốc gia',
-                'Đã được thay thế hoàn toàn bằng các lý thuyết quản trị hiện đại',
-                'Chỉ áp dụng đối với các tổ chức chính trị xã hội lớn'
+                'Là kim chỉ nam để phát triển kinh tế, bảo vệ chủ quyền và củng cố đồng thuận xã hội',
+                'Đã được thay thế hoàn toàn bởi các lý thuyết quản trị hiện đại',
+                'Chỉ áp dụng trong các sinh hoạt đoàn thể nhỏ lẻ'
             ],
             answer: 1
         }

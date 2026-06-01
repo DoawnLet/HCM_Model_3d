@@ -700,7 +700,7 @@ export class MuseumBuilder {
       else if (classInfo.id === 'luc_luong_dai_doan_ket') shortTitle += ": LỰC LƯỢNG";
       else if (classInfo.id === 'dieu_kien_phuong_thuc') shortTitle += ": ĐIỀU KIỆN";
       else if (classInfo.id === 'mat_tran_dan_toc_thong_nhat') shortTitle += ": MẶT TRẬN";
-      else if (classInfo.id === 'ket_luan') shortTitle += ": KẾT LUẬN";
+      else if (classInfo.id === 'ket_luan') shortTitle += ": PHƯƠNG THỨC";
 
       // Draw premium glowing text shadow (matching the room's accent color)
       titleCtx.shadowColor = classInfo.hexColor || "#ffffff";
@@ -943,7 +943,7 @@ export class MuseumBuilder {
     else if (classInfo.id === 'luc_luong_dai_doan_ket') displayTitle = "LỰC LƯỢNG ĐOÀN KẾT";
     else if (classInfo.id === 'dieu_kien_phuong_thuc') displayTitle = "ĐIỀU KIỆN XÂY DỰNG";
     else if (classInfo.id === 'mat_tran_dan_toc_thong_nhat') displayTitle = "MẶT TRẬN DÂN TỘC";
-    else if (classInfo.id === 'ket_luan') displayTitle = "BÀI HỌC KẾT LUẬN";
+    else if (classInfo.id === 'ket_luan') displayTitle = "PHƯƠNG THỨC XÂY DỰNG";
 
     ctx.fillText(displayTitle, 256, 108);
 
