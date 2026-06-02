@@ -3,7 +3,7 @@
 export function createAudioSystem() {
     let enabled = false;
 
-    function playTone(freq, duration, type = 'sine', volume = 0.15) {
+    function playTone(_freq, _duration, _type = 'sine', _volume = 0.15) {
         // Silent stub
     }
 

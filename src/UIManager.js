@@ -29,13 +29,16 @@ function parseTextWithLinks(text, container) {
     const rawUrlRegex = /(https?:\/\/[^\s()]+)/g;
     let urlLastIndex = 0;
     let urlMatch;
-    
+
     while ((urlMatch = rawUrlRegex.exec(remainingText)) !== null) {
-      const subPlainText = remainingText.substring(urlLastIndex, urlMatch.index);
+      const subPlainText = remainingText.substring(
+        urlLastIndex,
+        urlMatch.index,
+      );
       if (subPlainText) {
         container.appendChild(document.createTextNode(subPlainText));
       }
-      
+
       const url = urlMatch[1];
       const a = document.createElement("a");
       a.href = url;
@@ -44,10 +47,10 @@ function parseTextWithLinks(text, container) {
       a.textContent = url;
       a.className = "newspaper-link";
       container.appendChild(a);
-      
+
       urlLastIndex = rawUrlRegex.lastIndex;
     }
-    
+
     const subRemainingText = remainingText.substring(urlLastIndex);
     if (subRemainingText) {
       container.appendChild(document.createTextNode(subRemainingText));
@@ -91,6 +94,7 @@ export class UIManager {
       replayBtn: document.getElementById("replay-btn"),
       closeQuizBtn: document.getElementById("close-quiz-btn"),
       audioToggleBtn: document.getElementById("audio-toggle-btn"),
+      chatToggleBtn: document.getElementById("chat-toggle-btn"),
       helpToggleBtn: document.getElementById("help-toggle-btn"),
       qualitySelect: document.getElementById("quality-select"),
 
@@ -127,6 +131,12 @@ export class UIManager {
     if (this.dom.audioToggleBtn) {
       this.dom.audioToggleBtn.addEventListener("click", () => {
         if (this.callbacks.onAudioToggle) this.callbacks.onAudioToggle();
+      });
+    }
+
+    if (this.dom.chatToggleBtn) {
+      this.dom.chatToggleBtn.addEventListener("click", () => {
+        if (this.callbacks.onChatToggle) this.callbacks.onChatToggle();
       });
     }
 
@@ -184,7 +194,7 @@ export class UIManager {
     if (!this.dom.quizDialog) return;
 
     // Reset scroll position to top
-    const scrollBody = this.dom.quizDialog.querySelector('.scroll-body');
+    const scrollBody = this.dom.quizDialog.querySelector(".scroll-body");
     if (scrollBody) scrollBody.scrollTop = 0;
 
     // Set Texts
@@ -199,15 +209,19 @@ export class UIManager {
       this.dom.classImage.src = classInfo.image || "./assets/doan-ket.jpg";
     }
     if (this.dom.classImageCaption) {
-      this.dom.classImageCaption.innerText = classInfo.imageCaption || "Ảnh tư liệu";
+      this.dom.classImageCaption.innerText =
+        classInfo.imageCaption || "Ảnh tư liệu";
     }
 
     const articleMeta = document.getElementById("article-meta");
     const articleSubtitle = document.getElementById("article-subtitle");
     const articleEyebrow = document.getElementById("article-eyebrow");
-    if (articleMeta) articleMeta.textContent = "Số đặc biệt: Tư tưởng Hồ Chí Minh";
-    if (articleSubtitle) articleSubtitle.textContent = "Thứ Ba, Ngày 22 tháng 10 năm 2024";
-    if (articleEyebrow) articleEyebrow.textContent = "ẤN PHẨM ĐẶC BIỆT • TÀI LIỆU LỊCH SỬ";
+    if (articleMeta)
+      articleMeta.textContent = "Số đặc biệt: Tư tưởng Hồ Chí Minh";
+    if (articleSubtitle)
+      articleSubtitle.textContent = "Thứ Ba, Ngày 22 tháng 10 năm 2024";
+    if (articleEyebrow)
+      articleEyebrow.textContent = "ẤN PHẨM ĐẶC BIỆT • TÀI LIỆU LỊCH SỬ";
 
     // Details Box
     if (this.dom.classDetails) {
@@ -232,12 +246,18 @@ export class UIManager {
           labelRow.appendChild(heading);
           sectionEl.appendChild(labelRow);
 
-          if (Array.isArray(section.paragraphs) && section.paragraphs.length > 0) {
+          if (
+            Array.isArray(section.paragraphs) &&
+            section.paragraphs.length > 0
+          ) {
             const leadRow = document.createElement("div");
             leadRow.className = "newspaper-paragraph-row";
             const dropCap = document.createElement("span");
             dropCap.className = "drop-cap";
-            dropCap.textContent = section.paragraphs[0].trim().charAt(0).toUpperCase();
+            dropCap.textContent = section.paragraphs[0]
+              .trim()
+              .charAt(0)
+              .toUpperCase();
             const leadText = document.createElement("p");
             parseTextWithLinks(section.paragraphs[0].trim().slice(1), leadText);
             leadRow.appendChild(dropCap);
