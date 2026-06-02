@@ -164,6 +164,8 @@ export function createGame() {
           gameState.completedCount,
           CLASS_DATA.length,
         );
+        ui.updateQuest(`Đang khám phá ${CLASS_DATA.length} mốc nội dung về đại đoàn kết toàn dân tộc.`);
+        ui.updateQuest(`Đang khám phá ${CLASS_DATA.length} mốc nội dung về đại đoàn kết toàn dân tộc.`);
 
         // Hide loader and activate canvas thread
         ui.hideLoader();
