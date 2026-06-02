@@ -200,7 +200,7 @@ export function createPavilionModel(classInfo, materials) {
 
     // Premium Materials
     const matBronze = new THREE.MeshStandardMaterial({ color: 0x8c6239, metalness: 0.8, roughness: 0.3 });
-    const matGold = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.85, roughness: 0.2 });
+    const _matGold = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.85, roughness: 0.2 });
     const matLanternRed = new THREE.MeshStandardMaterial({ color: 0xff3b30, emissive: 0xff0000, emissiveIntensity: 0.45, roughness: 0.5 });
     
     // 1. Two-Tiered Stone Pedestal (Bệ đá cổ kính nhiều tầng)

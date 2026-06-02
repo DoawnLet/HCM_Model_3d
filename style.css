@@ -34,8 +34,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-user-select: none;
   user-select: none;
-  -webkit-user-drag: none;
 }
 
 .hidden {
@@ -64,8 +64,8 @@ canvas {
 /* Glassmorphism Panel */
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   border-radius: 24px;
@@ -130,11 +130,15 @@ canvas {
   justify-content: center;
   align-items: center;
   background-color: rgba(244, 246, 249, 0.65);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.progress-fill {
+  width: 0%;
 }
 
 .overlay-screen.active {
@@ -172,10 +176,10 @@ canvas {
   );
   position: relative;
   animation: spin 6s linear infinite;
-  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="black" d="M50 15 C45 35, 30 45, 10 50 C30 55, 45 65, 50 85 C55 65, 70 55, 90 50 C70 45, 55 35, 50 15 Z"/></svg>');
   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="black" d="M50 15 C45 35, 30 45, 10 50 C30 55, 45 65, 50 85 C55 65, 70 55, 90 50 C70 45, 55 35, 50 15 Z"/></svg>');
-  mask-size: contain;
   -webkit-mask-size: contain;
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="black" d="M50 15 C45 35, 30 45, 10 50 C30 55, 45 65, 50 85 C55 65, 70 55, 90 50 C70 45, 55 35, 50 15 Z"/></svg>');
+  mask-size: contain;
 }
 
 @keyframes spin {
@@ -244,10 +248,10 @@ canvas {
   height: 70px;
   margin: 0 auto 20px;
   background: linear-gradient(135deg, var(--primary-red), var(--primary-gold));
-  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="10" fill="black"/><path fill="black" d="M50 0 C40 25, 25 40, 0 50 C25 60, 40 75, 50 100 C60 75, 75 60, 100 50 C75 40, 60 25, 50 0 Z"/></svg>');
-  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="10" fill="black"/><path fill="black" d="M50 0 C40 25, 25 40, 0 50 C25 60, 40 75, 50 100 C60 75, 75 60, 100 50 C75 40, 60 25, 50 0 Z"/></svg>');
-  mask-size: contain;
   -webkit-mask-size: contain;
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="10" fill="black"/><path fill="black" d="M50 0 C40 25, 25 40, 0 50 C25 60, 40 75, 50 100 C60 75, 75 60, 100 50 C75 40, 60 25, 50 0 Z"/></svg>');
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="10" fill="black"/><path fill="black" d="M50 0 C40 25, 25 40, 0 50 C25 60, 40 75, 50 100 C60 75, 75 60, 100 50 C75 40, 60 25, 50 0 Z"/></svg>');
+  mask-size: contain;
 }
 
 .game-title {
@@ -440,7 +444,6 @@ canvas {
   }
 }
 
-
 .mini-progress-track {
   width: 110px;
   height: 5px;
@@ -593,8 +596,9 @@ canvas {
   border-radius: 16px;
   padding: 14px 28px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
-  backdrop-filter: blur(8px);
   z-index: 12;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .hud-prompt * {
@@ -603,6 +607,12 @@ canvas {
 
 .hud-prompt.hidden {
   display: none;
+}
+
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 .prompt-content {
@@ -643,12 +653,11 @@ canvas {
   }
 }
 
-
 /* Modernized Museum Display Dialogue (formerly Quiz Dialog Scroll) */
 .glass-scroll {
   background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
+  backdrop-filter: blur(25px);
   border: 1px solid rgba(255, 255, 255, 0.8);
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.12);
   border-radius: 28px;
@@ -674,9 +683,21 @@ canvas {
 #quiz-dialog .scroll-container {
   position: relative;
   background:
-    linear-gradient(180deg, rgba(255, 250, 242, 0.98), rgba(242, 230, 196, 0.98)),
-    radial-gradient(circle at top left, rgba(140, 110, 70, 0.12), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(90, 66, 40, 0.1), transparent 36%);
+    linear-gradient(
+      180deg,
+      rgba(255, 250, 242, 0.98),
+      rgba(242, 230, 196, 0.98)
+    ),
+    radial-gradient(
+      circle at top left,
+      rgba(140, 110, 70, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(90, 66, 40, 0.1),
+      transparent 36%
+    );
   border: 3px solid #1f1a17;
   box-shadow:
     inset 0 0 0 2px rgba(255, 255, 255, 0.5),
@@ -692,7 +713,6 @@ canvas {
 }
 
 #quiz-dialog .scroll-body {
-  scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
@@ -703,7 +723,13 @@ canvas {
 
 #quiz-dialog .scroll-content {
   background:
-    linear-gradient(90deg, rgba(160, 120, 70, 0.05), transparent 12%, transparent 88%, rgba(70, 48, 27, 0.06)),
+    linear-gradient(
+      90deg,
+      rgba(160, 120, 70, 0.05),
+      transparent 12%,
+      transparent 88%,
+      rgba(70, 48, 27, 0.06)
+    ),
     repeating-linear-gradient(
       180deg,
       rgba(82, 58, 32, 0.02) 0,
@@ -722,8 +748,12 @@ canvas {
   background-image:
     radial-gradient(rgba(90, 70, 45, 0.12) 0.8px, transparent 0.8px),
     radial-gradient(rgba(90, 70, 45, 0.08) 0.8px, transparent 0.8px);
-  background-size: 42px 42px, 68px 68px;
-  background-position: 0 0, 22px 28px;
+  background-size:
+    42px 42px,
+    68px 68px;
+  background-position:
+    0 0,
+    22px 28px;
   opacity: 0.28;
   pointer-events: none;
   mix-blend-mode: multiply;
@@ -755,6 +785,281 @@ canvas {
   display: grid;
   gap: 10px;
   margin-bottom: 18px;
+}
+
+/* AI Chat Dialog */
+.chat-overlay {
+  z-index: 20;
+}
+
+.chat-shell {
+  width: min(96vw, 1180px);
+  height: min(88vh, 760px);
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  overflow: hidden;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.96),
+    rgba(244, 246, 249, 0.9)
+  );
+}
+
+.chat-profile {
+  padding: 28px;
+  border-right: 1px solid rgba(31, 41, 55, 0.08);
+  background:
+    radial-gradient(circle at top, rgba(185, 28, 28, 0.08), transparent 44%),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(250, 250, 251, 0.88)
+    );
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.chat-avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  font-size: 1.9rem;
+  background: linear-gradient(135deg, var(--primary-red), var(--primary-gold));
+  color: #fff;
+  box-shadow: 0 18px 32px rgba(185, 28, 28, 0.18);
+}
+
+.chat-profile-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.chat-kicker {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--primary-red);
+  font-weight: 800;
+}
+
+.chat-profile h3,
+.chat-profile-copy h3 {
+  font-size: 1.5rem;
+  line-height: 1.15;
+  color: var(--text-main);
+}
+
+.chat-subtitle,
+.chat-summary {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.chat-quiz-btn {
+  border: none;
+  border-radius: 18px;
+  padding: 14px 18px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary-red), #ef4444);
+  cursor: pointer;
+  box-shadow: 0 14px 26px rgba(185, 28, 28, 0.22);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.chat-quiz-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 30px rgba(185, 28, 28, 0.28);
+}
+
+.chat-conversation {
+  position: relative;
+  padding: 28px;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  gap: 18px;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chat-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 1;
+}
+
+.chat-messages {
+  overflow-y: auto;
+  min-height: 0;
+  display: grid;
+  gap: 14px;
+  padding: 20px 16px 8px 4px;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(31, 41, 55, 0.22);
+}
+
+.chat-message {
+  display: flex;
+}
+
+.chat-message-user {
+  justify-content: flex-end;
+}
+
+.chat-message-assistant {
+  justify-content: flex-start;
+}
+
+.chat-bubble {
+  max-width: min(560px, 78%);
+  padding: 14px 16px;
+  border-radius: 18px;
+  line-height: 1.65;
+  font-size: 0.98rem;
+  white-space: pre-wrap;
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.08);
+}
+
+.chat-bubble-user {
+  background: linear-gradient(135deg, #111827, #374151);
+  color: #fff;
+  border-bottom-right-radius: 6px;
+}
+
+.chat-bubble-assistant {
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--text-main);
+  border: 1px solid rgba(31, 41, 55, 0.08);
+  border-bottom-left-radius: 6px;
+}
+
+.chat-typing {
+  font-size: 0.9rem;
+  color: var(--primary-red);
+  font-weight: 700;
+  padding-left: 8px;
+}
+
+.chat-composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 130px;
+  gap: 12px;
+  align-items: end;
+}
+
+.chat-input {
+  width: 100%;
+  min-height: 86px;
+  resize: vertical;
+  border-radius: 18px;
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  background: rgba(255, 255, 255, 0.94);
+  padding: 14px 16px;
+  font: inherit;
+  color: var(--text-main);
+  outline: none;
+}
+
+.chat-input:focus {
+  border-color: rgba(185, 28, 28, 0.35);
+  box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.08);
+}
+
+.chat-send-btn {
+  min-height: 86px;
+  border: none;
+  border-radius: 18px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary-gold), var(--primary-red));
+  cursor: pointer;
+  box-shadow: 0 14px 24px rgba(217, 119, 6, 0.22);
+}
+
+.hud-btn-chat .icon {
+  filter: saturate(1.2);
+}
+
+.hud-btn-chat {
+  border: 1px solid rgba(185, 28, 28, 0.16);
+}
+
+.speech-bubble {
+  position: fixed;
+  z-index: 18;
+  pointer-events: none;
+  max-width: min(320px, 62vw);
+  padding: 12px 14px 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.14);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.speech-bubble-tail {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  width: 16px;
+  height: 16px;
+  background: inherit;
+  border-right: 1px solid rgba(31, 41, 55, 0.12);
+  border-bottom: 1px solid rgba(31, 41, 55, 0.12);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.speech-bubble-text {
+  position: relative;
+  z-index: 1;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .chat-shell {
+    grid-template-columns: 1fr;
+    height: min(92vh, 860px);
+  }
+
+  .chat-profile {
+    border-right: none;
+    border-bottom: 1px solid rgba(31, 41, 55, 0.08);
+  }
+
+  .chat-bubble {
+    max-width: 88%;
+  }
+
+  .chat-composer {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-send-btn {
+    min-height: 52px;
+  }
 }
 
 #quiz-dialog .article-eyebrow {
@@ -1250,10 +1555,10 @@ canvas {
   height: 76px;
   margin: 0 auto 24px;
   background: linear-gradient(135deg, var(--accent-gold), var(--primary-red));
-  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon fill="black" points="50,0 63,38 100,38 70,60 81,100 50,75 19,100 30,60 0,38 37,38"/></svg>');
   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon fill="black" points="50,0 63,38 100,38 70,60 81,100 50,75 19,100 30,60 0,38 37,38"/></svg>');
-  mask-size: contain;
   -webkit-mask-size: contain;
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon fill="black" points="50,0 63,38 100,38 70,60 81,100 50,75 19,100 30,60 0,38 37,38"/></svg>');
+  mask-size: contain;
   animation: starSpin 4s linear infinite;
 }
 

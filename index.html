@@ -2,10 +2,7 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Triển lãm ảo 3D: Tư tưởng Hồ Chí Minh về Đại đoàn kết dân tộc</title>
     <!-- Google Fonts: Outfit for modern UI, Playfair Display for Vietnamese traditional scroll headers -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -92,7 +89,7 @@
           <span class="stat-label">ĐOÀN KẾT:</span>
           <span id="unity-progress-text" class="stat-value">0/5</span>
           <div class="mini-progress-track">
-            <div id="unity-progress-fill" style="width: 0%"></div>
+            <div id="unity-progress-fill" class="progress-fill"></div>
           </div>
         </div>
       </div>
@@ -117,6 +114,13 @@
           title="Bật/Tắt âm thanh"
         >
           <span class="icon">🔊</span>
+        </button>
+        <button
+          id="chat-toggle-btn"
+          class="hud-btn glass hud-btn-chat"
+          title="Mở chat"
+        >
+          <span class="icon">💬</span>
         </button>
         <button
           id="help-toggle-btn"
@@ -152,13 +156,13 @@
       <!-- Proximity Interaction Prompt -->
       <div id="interaction-prompt" class="hud-prompt hidden bounce">
         <div class="prompt-content">
-          <span class="prompt-key">🖱️</span>
+          <span class="prompt-key">💬</span>
           <span class="prompt-text"
-            >Click vào tranh: <span id="target-pedestal-name">Gian hàng</span></span
+            >Click để trò chuyện:
+            <span id="target-pedestal-name">Gian hàng</span></span
           >
         </div>
       </div>
-
     </div>
 
     <!-- Lesson & Quiz Dialog (Newspaper UI) -->
@@ -178,7 +182,9 @@
               </div>
               <div class="article-meta-row">
                 <span id="article-meta">Số đặc biệt: Tư tưởng Hồ Chí Minh</span>
-                <span id="article-subtitle">Thứ Ba, Ngày 22 tháng 10 năm 2024</span>
+                <span id="article-subtitle"
+                  >Thứ Ba, Ngày 22 tháng 10 năm 2024</span
+                >
                 <span>Giá: 500 Đồng</span>
               </div>
             </header>
@@ -192,18 +198,23 @@
                     alt="Ảnh minh họa đại đoàn kết"
                     class="article-image"
                   />
-                  <div id="class-image-caption" class="article-caption">Ảnh tư liệu: Đại hội đại biểu toàn dân tộc.</div>
+                  <div id="class-image-caption" class="article-caption">
+                    Ảnh tư liệu: Đại hội đại biểu toàn dân tộc.
+                  </div>
                 </div>
 
                 <section class="learning-section summary-box">
                   <blockquote>
                     <p id="class-quote">
-                      “Đoàn kết là một chính sách dân tộc, không phải là một thủ đoạn chính trị.”
+                      “Đoàn kết là một chính sách dân tộc, không phải là một thủ
+                      đoạn chính trị.”
                     </p>
                   </blockquote>
                   <h3>TÓM TẮT NỘI DUNG:</h3>
                   <p id="class-summary">
-                    Trong tư tưởng Hồ Chí Minh, đại đoàn kết toàn dân tộc giữ vị trí đặc biệt quan trọng và là vấn đề có ý nghĩa chiến lược đối với cách mạng Việt Nam.
+                    Trong tư tưởng Hồ Chí Minh, đại đoàn kết toàn dân tộc giữ vị
+                    trí đặc biệt quan trọng và là vấn đề có ý nghĩa chiến lược
+                    đối với cách mạng Việt Nam.
                   </p>
                 </section>
 
@@ -233,6 +244,67 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- AI Chat Dialog -->
+    <div id="chat-dialog" class="overlay-screen hidden chat-overlay">
+      <div id="chat-panel" class="chat-shell glass">
+        <aside class="chat-profile">
+          <div class="chat-avatar">💬</div>
+          <div class="chat-profile-copy">
+            <p class="chat-kicker">Đối thoại tương tác</p>
+            <h3 id="chat-title">Nhân vật</h3>
+            <p id="chat-subtitle" class="chat-subtitle">Nhân vật tương tác</p>
+          </div>
+          <p id="chat-summary" class="chat-summary">
+            Hãy đặt câu hỏi để bắt đầu cuộc trò chuyện.
+          </p>
+          <div id="chat-suggestions" class="chat-suggestions">
+            <!-- Suggested questions will be inserted here -->
+          </div>
+          <button id="chat-quiz-btn" class="chat-quiz-btn" type="button">
+            Mở phần thử thách
+          </button>
+        </aside>
+
+        <section class="chat-conversation">
+          <button
+            id="close-chat-btn"
+            class="close-btn chat-close-btn"
+            title="Đóng trò chuyện"
+          >
+            &times;
+          </button>
+
+          <div
+            id="chat-messages"
+            class="chat-messages"
+            aria-live="polite"
+          ></div>
+          <p id="chat-typing" class="chat-typing hidden">Đang trả lời...</p>
+
+          <div class="chat-composer">
+            <textarea
+              id="chat-input"
+              class="chat-input"
+              rows="3"
+              placeholder="Nhập câu hỏi của bạn rồi nhấn Enter hoặc Gửi"
+            ></textarea>
+            <button id="chat-send-btn" class="chat-send-btn" type="button">
+              Gửi
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div
+      id="chat-speech-bubble"
+      class="speech-bubble hidden"
+      aria-hidden="true"
+    >
+      <div class="speech-bubble-tail"></div>
+      <div id="chat-speech-bubble-text" class="speech-bubble-text"></div>
     </div>
 
     <!-- Victory Screen Overlay -->

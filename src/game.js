@@ -6,6 +6,7 @@ import { Avatar } from "./Avatar.js";
 import { MuseumBuilder } from "./MuseumBuilder.js";
 import { ParticleSystem } from "./ParticleSystem.js";
 import { UIManager } from "./UIManager.js";
+import { ChatManager } from "./chat/ChatManager.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 const lotusUrl = "./assets/lotus_flower_by_geometry_nodes.glb";
 
@@ -58,7 +59,7 @@ export function createGame() {
   const audio = createAudioSystem();
 
   // Core module references
-  let sceneMgr, avatar, museum, particles, ui;
+  let sceneMgr, avatar, museum, particles, ui, chat;
   let clock;
 
   let activePedestalId = null;
@@ -104,9 +105,14 @@ export function createGame() {
       onStartGame: startGame,
       onReplay: resetGame,
       onAudioToggle: toggleAudio,
+      onChatToggle: openChatLauncher,
       onQualityChange: setQuality,
     });
     ui.setQualityValue(qualityKey);
+    chat = new ChatManager({
+      sceneManager: sceneMgr,
+      onOpenQuiz: triggerQuizOverlay,
+    });
 
     // 3. Set up GLTFLoader to load the Lotus model asynchronously
     const loader = new GLTFLoader();
@@ -157,7 +163,7 @@ export function createGame() {
         if (interactionPrompt) {
           interactionPrompt.addEventListener("click", () => {
             if (activePedestalId !== null) {
-              triggerQuizOverlay(activePedestalId);
+              openChatOverlay(activePedestalId);
             }
           });
         }
@@ -255,7 +261,28 @@ export function createGame() {
       activePedestalId !== null &&
       gameState.isPlaying
     ) {
-      triggerQuizOverlay(activePedestalId);
+      openChatOverlay(activePedestalId);
+    }
+  }
+
+  function openChatOverlay(classId) {
+    if (!museum || !chat) return;
+
+    const classInfo = CLASS_DATA.find((item) => item.id === classId);
+    const pavilion = museum.pavilions.find((item) => item.id === classId);
+    if (!classInfo) return;
+
+    chat.open(classInfo, pavilion?.group || null);
+  }
+
+  function openChatLauncher() {
+    if (activePedestalId !== null) {
+      openChatOverlay(activePedestalId);
+      return;
+    }
+
+    if (CLASS_DATA.length > 0) {
+      openChatOverlay(CLASS_DATA[0].id);
     }
   }
 
@@ -339,7 +366,9 @@ export function createGame() {
     const total = CLASS_DATA.length;
     const completed = gameState.completedCount;
     if (completed < total) {
-      ui.updateQuest(`Hãy học và hoàn thành cả 5 phần bài học (Đã hoàn thành ${completed}/${total})`);
+      ui.updateQuest(
+        `Hãy học và hoàn thành cả 5 phần bài học (Đã hoàn thành ${completed}/${total})`,
+      );
     } else {
       ui.updateQuest("Hành trình hoàn tất! Chiêm ngưỡng Vườn Sen.");
     }
@@ -382,6 +411,7 @@ export function createGame() {
 
     // 5. Reset UI components
     ui.hideVictoryScreen();
+    if (chat) chat.close();
     ui.resetChecklist(CLASS_DATA);
     ui.updateHUD(gameState.score, 0, CLASS_DATA.length);
 
@@ -394,12 +424,14 @@ export function createGame() {
 
     const delta = clock.getDelta();
     const time = clock.getElapsedTime();
+    if (chat) chat.update(sceneMgr.camera, sceneMgr.renderer);
 
     // 1. Update character and inputs (freeze movement if in quiz dialog)
     const isDialogActive = document
       .getElementById("quiz-dialog")
       .classList.contains("active");
-    const isFrozen = !gameState.isPlaying || isDialogActive;
+    const isChatActive = chat ? chat.isOpen() : false;
+    const isFrozen = !gameState.isPlaying || isDialogActive || isChatActive;
     avatar.update(delta, sceneMgr.camera, isFrozen);
 
     // 2. Camera following character
@@ -530,23 +562,37 @@ export function createGame() {
   function handlePointerDown(e) {
     pointerStartX = e.clientX;
     pointerStartY = e.clientY;
-    console.log("[DigitalTwin 3D] Pointer Down:", pointerStartX, pointerStartY, e.target);
+    console.log(
+      "[DigitalTwin 3D] Pointer Down:",
+      pointerStartX,
+      pointerStartY,
+      e.target,
+    );
   }
 
   function handlePointerUp(e) {
-    console.log("[DigitalTwin 3D] Pointer Up. Target:", e.target, "Playing:", gameState.isPlaying);
+    console.log(
+      "[DigitalTwin 3D] Pointer Up. Target:",
+      e.target,
+      "Playing:",
+      gameState.isPlaying,
+    );
     if (!gameState.isPlaying) return;
 
     // Ignore clicks on UI overlay elements instead of restricting to exact canvas target
     if (
       e.target &&
       (e.target.tagName === "BUTTON" ||
-       (typeof e.target.closest === "function" &&
-        (e.target.closest("#quiz-dialog") ||
-         e.target.closest("#game-hud") ||
-         e.target.closest("#main-menu"))))
+        (typeof e.target.closest === "function" &&
+          (e.target.closest("#quiz-dialog") ||
+            e.target.closest("#chat-dialog") ||
+            e.target.closest("#game-hud") ||
+            e.target.closest("#main-menu"))))
     ) {
-      console.log("[DigitalTwin 3D] Pointer Up ignored: Clicked on UI element", e.target);
+      console.log(
+        "[DigitalTwin 3D] Pointer Up ignored: Clicked on UI element",
+        e.target,
+      );
       return;
     }
 
@@ -556,7 +602,7 @@ export function createGame() {
     console.log("[DigitalTwin 3D] Pointer movement diff:", diffX, diffY);
     if (diffX > 10 || diffY > 10) {
       console.log("[DigitalTwin 3D] Pointer Up ignored: Drag detected");
-      return; 
+      return;
     }
 
     // Map pointer to normalized device coordinates
@@ -569,12 +615,20 @@ export function createGame() {
     console.log("[DigitalTwin 3D] Active room/pedestal ID:", activePedestalId);
     // Only allow clicking if player is standing in front of the room
     if (activePedestalId === null) return;
-    const activePavilion = museum.pavilions.find((p) => p.id === activePedestalId);
+    const activePavilion = museum.pavilions.find(
+      (p) => p.id === activePedestalId,
+    );
     if (!activePavilion) return;
 
     // Intersect the entire scene to ensure we pick up all geometries
-    const intersects = raycaster.intersectObjects(sceneMgr.scene.children, true);
-    console.log("[DigitalTwin 3D] Raycast total intersects in scene:", intersects.length);
+    const intersects = raycaster.intersectObjects(
+      sceneMgr.scene.children,
+      true,
+    );
+    console.log(
+      "[DigitalTwin 3D] Raycast total intersects in scene:",
+      intersects.length,
+    );
 
     let clickedExhibit = false;
     for (let i = 0; i < intersects.length; i++) {
@@ -584,7 +638,11 @@ export function createGame() {
       while (parent) {
         if (parent === activePavilion.group) {
           clickedExhibit = true;
-          console.log("[DigitalTwin 3D] Intersected active room element:", obj.name || obj.type, "Parent group matched!");
+          console.log(
+            "[DigitalTwin 3D] Intersected active room element:",
+            obj.name || obj.type,
+            "Parent group matched!",
+          );
           break;
         }
         parent = parent.parent;
@@ -593,8 +651,11 @@ export function createGame() {
     }
 
     if (clickedExhibit) {
-      console.log("[DigitalTwin 3D] Opening slide for exhibit:", activePedestalId);
-      triggerQuizOverlay(activePedestalId);
+      console.log(
+        "[DigitalTwin 3D] Opening slide for exhibit:",
+        activePedestalId,
+      );
+      openChatOverlay(activePedestalId);
     } else {
       console.log("[DigitalTwin 3D] Click did not hit the active room group.");
     }
