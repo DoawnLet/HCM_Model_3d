@@ -114,6 +114,19 @@ export function createGame() {
       onOpenQuiz: triggerQuizOverlay,
     });
 
+    // Add click listeners to HUD checklist items
+    CLASS_DATA.forEach((c) => {
+      const item = document.getElementById(`chk-${c.id}`);
+      if (item) {
+        item.style.cursor = "pointer";
+        item.addEventListener("click", () => {
+          if (gameState.isPlaying) {
+            triggerQuizOverlay(c.id);
+          }
+        });
+      }
+    });
+
     // 3. Set up GLTFLoader to load the Lotus model asynchronously
     const loader = new GLTFLoader();
     const statusText = document.getElementById("loading-status");
@@ -163,7 +176,7 @@ export function createGame() {
         if (interactionPrompt) {
           interactionPrompt.addEventListener("click", () => {
             if (activePedestalId !== null) {
-              openChatOverlay(activePedestalId);
+              triggerQuizOverlay(activePedestalId);
             }
           });
         }
@@ -261,7 +274,7 @@ export function createGame() {
       activePedestalId !== null &&
       gameState.isPlaying
     ) {
-      openChatOverlay(activePedestalId);
+      triggerQuizOverlay(activePedestalId);
     }
   }
 
@@ -655,7 +668,7 @@ export function createGame() {
         "[DigitalTwin 3D] Opening slide for exhibit:",
         activePedestalId,
       );
-      openChatOverlay(activePedestalId);
+      triggerQuizOverlay(activePedestalId);
     } else {
       console.log("[DigitalTwin 3D] Click did not hit the active room group.");
     }
