@@ -220,9 +220,9 @@ canvas {
 
 /* Main Menu Card */
 .menu-card {
-  width: 92%;
-  max-width: 600px;
-  padding: 45px;
+  width: min(92%, 760px);
+  max-width: 760px;
+  padding: 36px 40px 32px;
   text-align: center;
   border: 1px solid rgba(217, 119, 6, 0.2);
   box-shadow:
@@ -257,34 +257,40 @@ canvas {
 .game-title {
   font-family: var(--font-serif);
   font-weight: 800;
-  font-size: 2.4rem;
-  line-height: 1.15;
-  letter-spacing: 1.5px;
-  margin-bottom: 16px;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  line-height: 1.08;
+  letter-spacing: 1.2px;
+  margin-bottom: 14px;
   color: var(--text-main);
+  text-wrap: balance;
+  max-width: 100%;
 }
 
 .game-title .highlight {
+  display: block;
   background: linear-gradient(135deg, var(--primary-red), var(--primary-gold));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 2.7rem;
+  font-size: clamp(2rem, 4.6vw, 3.15rem);
   font-weight: 900;
+  line-height: 1.12;
+  margin-top: 4px;
 }
 
 .game-subtitle {
   font-size: 0.96rem;
   color: var(--text-muted);
-  margin-bottom: 32px;
+  margin: 0 auto 24px;
   line-height: 1.6;
+  max-width: 620px;
 }
 
 .menu-instructions {
   text-align: left;
   background: rgba(0, 0, 0, 0.03);
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 36px;
+  border-radius: 18px;
+  padding: 22px 22px 18px;
+  margin-bottom: 28px;
   border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -297,9 +303,10 @@ canvas {
 }
 
 .controls-guide {
-  display: flex;
-  justify-content: space-around;
-  gap: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
 }
 
 .guide-item {
@@ -307,6 +314,10 @@ canvas {
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
+}
+
+.guide-item:last-child {
+  justify-content: center;
 }
 
 .key-cap {
@@ -333,6 +344,7 @@ canvas {
   color: var(--text-muted);
   margin-top: 6px;
   width: 100%;
+  text-align: center;
 }
 
 .mobile-note {
@@ -413,11 +425,12 @@ canvas {
   align-items: center;
   gap: 12px;
   min-width: 320px;
-  max-width: 480px;
+  max-width: min(560px, 100%);
   justify-content: center;
   border: 1px solid rgba(217, 119, 6, 0.25);
   box-shadow: 0 4px 15px rgba(217, 119, 6, 0.08);
   animation: borderPulse 3s infinite alternate;
+  padding: 12px 18px;
 }
 
 #quest-panel-hud .stat-label {
@@ -431,6 +444,7 @@ canvas {
   font-weight: 600;
   color: var(--text-main);
   text-align: center;
+  line-height: 1.35;
 }
 
 @keyframes borderPulse {
@@ -1656,19 +1670,30 @@ textarea {
 /* Responsiveness overrides */
 @media (max-width: 768px) {
   .menu-card {
-    padding: 32px 20px;
+    width: 94%;
+    padding: 26px 18px 22px;
   }
 
   .game-title {
-    font-size: 1.9rem;
+    font-size: 1.85rem;
   }
 
   .game-title .highlight {
-    font-size: 2.15rem;
+    font-size: 2.05rem;
+  }
+
+  .game-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  .menu-instructions {
+    padding: 16px 14px 12px;
+    margin-bottom: 24px;
   }
 
   .controls-guide {
-    display: none;
+    grid-template-columns: 1fr;
   }
 
   .menu-instructions h3 {
