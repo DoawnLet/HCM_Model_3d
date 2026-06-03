@@ -88,6 +88,9 @@ export class UIManager {
       quizFeedback: document.getElementById("quiz-feedback"),
       classImage: document.getElementById("class-image"),
       classImageCaption: document.getElementById("class-image-caption"),
+      classVideoContainer: document.getElementById("class-video-container"),
+      classVideo: document.getElementById("class-video"),
+      classVideoCaption: document.getElementById("class-video-caption"),
 
       // Action buttons
       startGameBtn: document.getElementById("start-game-btn"),
@@ -127,6 +130,15 @@ export class UIManager {
       });
     }
 
+    // Close Quiz when clicking outside (on the overlay background)
+    if (this.dom.quizDialog) {
+      this.dom.quizDialog.addEventListener("click", (event) => {
+        if (event.target === this.dom.quizDialog) {
+          this.closeQuiz();
+        }
+      });
+    }
+
     // Toggle Audio (kept basic for now as requested by user)
     if (this.dom.audioToggleBtn) {
       this.dom.audioToggleBtn.addEventListener("click", () => {
@@ -155,6 +167,46 @@ export class UIManager {
         }
       });
     }
+
+    this.wireChecklistItems();
+  }
+
+  wireChecklistItems() {
+    const checklistItems = document.querySelectorAll(".check-item");
+    checklistItems.forEach((item) => {
+      item.style.cursor = "pointer";
+      item.tabIndex = 0;
+      item.setAttribute("role", "button");
+
+      const openItem = () => {
+        if (!item.id) return;
+        const classId = item.id.replace(/^chk-/, "");
+        if (this.callbacks.onChecklistClick) {
+          this.callbacks.onChecklistClick(classId);
+        }
+      };
+
+      item.addEventListener("click", openItem);
+      item.addEventListener("pointerup", openItem);
+      item.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openItem();
+        }
+      });
+    });
+
+    document.addEventListener(
+      "click",
+      (event) => {
+        const item = event.target.closest?.(".check-item");
+        if (!item || !item.id) return;
+        if (this.callbacks.onChecklistClick) {
+          this.callbacks.onChecklistClick(item.id.replace(/^chk-/, ""));
+        }
+      },
+      true,
+    );
   }
 
   hideLoader() {
@@ -213,6 +265,21 @@ export class UIManager {
         classInfo.imageCaption || "Ảnh tư liệu";
     }
 
+    // Video handling
+    if (this.dom.classVideoContainer && this.dom.classVideo) {
+      if (classInfo.video) {
+        this.dom.classVideo.src = classInfo.video;
+        this.dom.classVideo.load();
+        if (this.dom.classVideoCaption) {
+          this.dom.classVideoCaption.innerText = classInfo.videoCaption || "Video tư liệu";
+        }
+        this.dom.classVideoContainer.style.display = "block";
+      } else {
+        this.dom.classVideo.src = "";
+        this.dom.classVideoContainer.style.display = "none";
+      }
+    }
+
     const articleMeta = document.getElementById("article-meta");
     const articleSubtitle = document.getElementById("article-subtitle");
     const articleEyebrow = document.getElementById("article-eyebrow");
@@ -265,9 +332,29 @@ export class UIManager {
             sectionEl.appendChild(leadRow);
 
             section.paragraphs.slice(1).forEach((paragraph) => {
-              const p = document.createElement("p");
-              parseTextWithLinks(paragraph, p);
-              sectionEl.appendChild(p);
+              if (typeof paragraph === "object" && paragraph !== null) {
+                if (paragraph.type === "image") {
+                  const imgCard = document.createElement("div");
+                  imgCard.className = "article-image-card";
+                  imgCard.style.margin = "14px 0";
+                  const img = document.createElement("img");
+                  img.className = "article-image";
+                  img.src = paragraph.src;
+                  img.alt = paragraph.caption || "Ảnh minh họa";
+
+                  const caption = document.createElement("div");
+                  caption.className = "article-caption";
+                  caption.innerText = paragraph.caption || "";
+
+                  imgCard.appendChild(img);
+                  imgCard.appendChild(caption);
+                  sectionEl.appendChild(imgCard);
+                }
+              } else {
+                const p = document.createElement("p");
+                parseTextWithLinks(paragraph, p);
+                sectionEl.appendChild(p);
+              }
             });
           }
 
@@ -352,6 +439,10 @@ export class UIManager {
     if (this.dom.quizDialog) {
       this.dom.quizDialog.classList.remove("active");
       this.dom.quizDialog.classList.add("hidden");
+    }
+    if (this.dom.classVideo) {
+      this.dom.classVideo.pause();
+      this.dom.classVideo.src = "";
     }
     this.hideInteractionPrompt();
   }

@@ -83,6 +83,7 @@ export function createGame() {
       dieu_kien_phuong_thuc: false,
       mat_tran_dan_toc_thong_nhat: false,
       ket_luan: false,
+      bai_hoc_ket_luan: false,
     },
     isPlaying: false,
     victoryTriggered: false,
@@ -107,6 +108,9 @@ export function createGame() {
       onAudioToggle: toggleAudio,
       onChatToggle: openChatLauncher,
       onQualityChange: setQuality,
+      onChecklistClick: (classId) => {
+        triggerQuizOverlay(classId);
+      },
     });
     ui.setQualityValue(qualityKey);
     chat = new ChatManager({
@@ -114,18 +118,7 @@ export function createGame() {
       onOpenQuiz: triggerQuizOverlay,
     });
 
-    // Add click listeners to HUD checklist items
-    CLASS_DATA.forEach((c) => {
-      const item = document.getElementById(`chk-${c.id}`);
-      if (item) {
-        item.style.cursor = "pointer";
-        item.addEventListener("click", () => {
-          if (gameState.isPlaying) {
-            triggerQuizOverlay(c.id);
-          }
-        });
-      }
-    });
+    // Checklist is handled by UIManager delegated click events.
 
     // 3. Set up GLTFLoader to load the Lotus model asynchronously
     const loader = new GLTFLoader();
@@ -164,8 +157,12 @@ export function createGame() {
           gameState.completedCount,
           CLASS_DATA.length,
         );
-        ui.updateQuest(`Đang khám phá ${CLASS_DATA.length} mốc nội dung về đại đoàn kết toàn dân tộc.`);
-        ui.updateQuest(`Đang khám phá ${CLASS_DATA.length} mốc nội dung về đại đoàn kết toàn dân tộc.`);
+        ui.updateQuest(
+          `Đang khám phá ${CLASS_DATA.length} mốc nội dung về đại đoàn kết toàn dân tộc.`,
+        );
+        ui.updateQuest(
+          `Đang khám phá ${CLASS_DATA.length} mốc nội dung về đại đoàn kết toàn dân tộc.`,
+        );
 
         // Hide loader and activate canvas thread
         ui.hideLoader();
@@ -382,7 +379,7 @@ export function createGame() {
     const completed = gameState.completedCount;
     if (completed < total) {
       ui.updateQuest(
-        `Hãy học và hoàn thành cả 5 phần bài học (Đã hoàn thành ${completed}/${total})`,
+        `Hãy học và hoàn thành cả ${total} phần bài học (Đã hoàn thành ${completed}/${total})`,
       );
     } else {
       ui.updateQuest("Hành trình hoàn tất! Chiêm ngưỡng Vườn Sen.");

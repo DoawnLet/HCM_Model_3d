@@ -241,7 +241,13 @@ function formatFullMilestoneContent(milestone) {
       }
       if (Array.isArray(section.paragraphs)) {
         section.paragraphs.forEach((p) => {
-          result += `  - ${p}\n`;
+          if (typeof p === "object" && p !== null) {
+            if (p.type === "image") {
+              result += `  - [Hình ảnh]: ${p.caption || "Ảnh minh họa"}\n`;
+            }
+          } else {
+            result += `  - ${p}\n`;
+          }
         });
       }
       if (Array.isArray(section.bullets)) {
