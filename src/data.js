@@ -7,8 +7,6 @@ export const CLASS_DATA = [
         hexColor: '#d97706',
         image: './assets/doan-ket.jpg',
         imageCaption: 'Ảnh tư liệu: Đại hội đại biểu toàn dân tộc.',
-        video: './assets/p_1.mp4',
-        videoCaption: 'Video tư liệu: Sức mạnh Đại đoàn kết toàn dân tộc.',
         quote: '“Đoàn kết là một chính sách dân tộc, không phải là một thủ đoạn chính trị.”',
         summary: 'Trong tư tưởng của Hồ Chí Minh, đại đoàn kết toàn dân tộc giữ vị trí đặc biệt quan trọng và là vấn đề có ý nghĩa chiến lược đối với cách mạng Việt Nam.',
         sections: [
@@ -52,23 +50,16 @@ export const CLASS_DATA = [
         hexColor: '#0ea5e9',
         image: './assets/Luc-Luong.png',
         imageCaption: 'Ảnh minh họa: Giai cấp công nhân, nông dân và tầng lớp trí thức là nòng cốt của khối đại đoàn kết.',
-        video: './assets/0603.mp4',
-        videoCaption: 'Video tư liệu: Lực lượng đại đoàn kết toàn dân.',
         quote: '“Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và phục vụ nhân dân thì ta đoàn kết với họ.”',
         summary: 'Khối đại đoàn kết toàn dân tộc bao gồm toàn thể nhân dân Việt Nam, lấy liên minh công nhân - nông dân - trí thức làm nền tảng dưới sự lãnh đạo của Đảng.',
         sections: [
             {
                 title: 'a) Chủ thể của khối đại đoàn kết toàn dân tộc',
                 paragraphs: [
-                    'Không gian rộng lớn: Bao gồm toàn thể nhân dân Việt Nam ở trong và ngoài nước, không phân biệt giai cấp, dân tộc, tôn giáo, lứa tuổi hay chính kiến.',
-                    'Khái niệm "Nhân dân" toàn diện: Vừa là từng cá nhân cụ thể, vừa là tập hợp đông đảo quần chúng lao động - động lực chính của cách mạng.',
-                    'Chính sách mở rộng tối đa: Xóa bỏ định kiến, hướng tới tương lai và sẵn sàng đoàn kết với bất kỳ ai có lòng phụng sự Tổ quốc.',
-                    {
-                        type: 'image',
-                        src: './assets/Tranluuquang.jpeg',
-                        caption: 'Ảnh tư liệu: Ông Trần Lưu Quang gặp gỡ kiều bào tại Chương trình Xuân Quê hương 2024.'
-                    },
-                    'Ví dụ thực tế (2024): Chương trình "Xuân Quê hương 2024" quy tụ hơn 1.500 kiều bào. Lãnh đạo Đảng và Nhà nước khẳng định kiều bào là bộ phận không thể tách rời của dân tộc. Kiều bào đã đầu tư hơn 420 dự án tại Việt Nam với tổng vốn hàng tỷ USD, đóng góp to lớn về trí tuệ và công nghệ cho đất nước.',
+                    'Không gian và đối tượng rộng lớn: Khối đại đoàn kết bao gồm toàn thể nhân dân Việt Nam, không phân biệt giai cấp, tầng lớp, dân tộc, tôn giáo, tín ngưỡng, lứa tuổi, giới tính, thành phần xã hội, chính kiến, dù là người đang ở trong nước hay kiều bào đang sinh sống ở nước ngoài.',
+                    'Khái niệm "Nhân dân" toàn diện: Vừa là từng con người cụ thể, vừa là tập hợp đông đảo quần chúng nhân dân lao động - động lực chính của cách mạng.',
+                    'Chính sách mở rộng tối đa: Chủ trương xóa bỏ mọi định kiến, hướng tới tương lai: “Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và phục vụ nhân dân thì ta đoàn kết với họ”.',
+                    'Ví dụ thực tế (Năm 2024): Chương trình "Xuân Quê hương 2024" được tổ chức quy mô lớn tại TP.HCM với sự tham gia của hơn 1.500 kiều bào từ khắp nơi trên thế giới trở về. Tại đây, lãnh đạo Đảng và Nhà nước đã khẳng định kiều bào là bộ phận không thể tách rời của khối đại đoàn kết dân tộc. Tính đến năm 2024, kiều bào đã đầu tư hơn 420 dự án tại Việt Nam với tổng vốn hàng tỷ USD, đồng thời đóng góp rất lớn về trí tuệ khoa học, công nghệ cao cho đất nước.',
                     'Link: [Báo Điện tử Chính phủ](https://baochinhphu.vn/kieu-bao-la-bo-phan-khong-the-tach-roi-cua-khoi-dai-doan-ket-toan-dan-toc-102159135.htm)'
                 ]
             },
@@ -127,13 +118,8 @@ export const CLASS_DATA = [
             {
                 title: 'd) Niềm tin vững chắc vào nhân dân',
                 paragraphs: [
-                    'Nguyên tắc \'Dân làm gốc\': Cán bộ phải tin tưởng tuyệt đối vào sức mạnh, tinh thần cách mạng và trí tuệ của nhân dân; tránh xa bệnh quan liêu, mệnh lệnh, rời xa quần chúng.',
-                    {
-                        type: 'image',
-                        src: './assets/covid cong dong1.jpg',
-                        caption: 'Ảnh tư liệu: Thành viên Tổ COVID cộng đồng đi từng ngõ, gõ từng nhà để tuyên truyền và hỗ trợ người dân.'
-                    },
-                    'Ví dụ thực tế (2021 - 2022): Trong đại dịch COVID-19, mô hình "Tổ COVID cộng đồng" tự quản phát huy vai trò to lớn tại các khu dân cư trong việc truy vết, hỗ trợ lương thực và giám sát y tế, minh chứng cho sức mạnh tự quản của nhân dân.',
+                    'Niềm tin vững chắc vào nhân dân: Phải quán triệt sâu sắc nguyên tắc "Nước lấy dân làm gốc". Người cán bộ phải tin tưởng tuyệt đối vào sức mạnh vô địch, tinh thần cách mạng và trí tuệ vô bờ bến của quần chúng nhân dân; tuyệt đối không được sa vào bệnh quan liêu, mệnh lệnh, xa rời quần chúng.',
+                    'Ví dụ thực tế (Giai đoạn 2021 - 2022): Trong đợt bùng phát đại dịch COVID-19, mô hình "Tổ COVID cộng đồng" được triển khai mạnh mẽ trên cả nước. Hàng vạn tổ tự quản với sự tham gia tự nguyện của chính người dân tại các con hẻm, khu dân cư đã đi từng ngõ, gõ từng nhà để hỗ trợ truy vết, phân phát lương thực, giám sát y tế. Đây là minh chứng rõ nhất cho việc tin vào dân, dựa vào sức mạnh tự quản của nhân dân để vượt qua khủng hoảng.',
                     'Link: [Báo Quân đội nhân dân](https://www.qdnd.vn/y-te/cac-van-de/to-covid-cong-dong-la-chan-chong-dich-hieu-qua-671577)'
                 ]
             }
@@ -165,18 +151,8 @@ export const CLASS_DATA = [
                 paragraphs: [
                     'Sự cụ thể hóa bằng tổ chức: Khối đại đoàn kết chỉ trở thành sức mạnh thực tế khi được tổ chức khoa học thành một khối vững chắc thông qua Mặt trận dân tộc thống nhất.',
                     'Nơi hội tụ sức mạnh: Là ngôi nhà chung quy tụ các tổ chức chính trị, giáo phái, đoàn thể và cá nhân yêu nước. Tùy từng thời kỳ mà Mặt trận có tên gọi khác nhau để tập hợp lực lượng: Phản đế đồng minh (1930), Việt Minh (1941), Liên Việt (1951), Tổ quốc Việt Nam (1955)...',
-                    {
-                        type: 'image',
-                        src: './assets/mat tran to quoc.jpg',
-                        caption: 'Ảnh tư liệu: Mặt trận Tổ quốc Việt Nam quy tụ sức mạnh đoàn kết toàn dân tộc.'
-                    },
-                    'Thực chất của Mặt trận: Tổ chức chính trị - xã hội nhằm tập hợp đông đảo các giai cấp, tầng lớp, dân tộc, tôn giáo ở trong và ngoài nước vì mục tiêu độc lập, thống nhất và hạnh phúc của nhân dân.',
-                    {
-                        type: 'image',
-                        src: './assets/ungho-1726311695928588286231.webp',
-                        caption: 'Ảnh tư liệu: Người dân và doanh nghiệp chung tay quyên góp qua Mặt trận Tổ quốc.'
-                    },
-                    'Ví dụ thực tế (2024): Sau siêu bão Yagi (Bão số 3), Mặt trận Tổ quốc đã kêu gọi ủng hộ, tiếp nhận hàng ngàn tỷ đồng cùng nhu yếu phẩm từ mọi tầng lớp nhân dân trong và ngoài nước để phân phối kịp thời đến vùng lũ.',
+                    'Thực chất của Mặt trận: Mặc dù có nhiều tên gọi khác nhau nhưng thực chất chỉ là một tổ chức chính trị - xã hội nhằm tập hợp đông đảo các giai cấp, tầng lớp, dân tộc, tôn giáo, đảng phái, các tổ chức, cá nhân yêu nước ở trong và ngoài nước, phấn đấu vì mục tiêu chung là độc lập, thống nhất của Tổ quốc và tự do, hạnh phúc của nhân dân.',
+                    'Ví dụ thực tế (Năm 2024): Ngay sau khi siêu bão Yagi (Bão số 3) càn quét và gây thiệt hại nặng nề cho các tỉnh miền Bắc vào tháng 9/2024, Ủy ban Trung ương Mặt trận Tổ quốc Việt Nam đã ra lời kêu gọi ủng hộ đồng bào bị thiệt hại. Chỉ trong một thời gian ngắn, Mặt trận đã tiếp nhận hàng ngàn tỷ đồng cùng nhu yếu phẩm từ các cơ quan, doanh nghiệp, các tổ chức tôn giáo, đồng bào trong nước và kiều bào nước ngoài, kịp thời phân phối đến vùng lũ.',
                     'Link: [Báo Tuổi trẻ](https://tuoitre.vn/hon-1-000-ti-dong-ung-ho-dong-bao-thiet-hai-do-bao-so-3-20240914180955013.htm)'
                 ]
             },
@@ -232,12 +208,7 @@ export const CLASS_DATA = [
                 paragraphs: [
                     'Gắn kết hữu cơ: Các đoàn thể không hoạt động riêng rẽ mà liên kết chặt chẽ trong Mặt trận, làm cầu nối hai chiều giữa Đảng, Nhà nước và nhân dân.',
                     'Bài học lịch sử sâu sắc: “Đồng bào tất cả các giai tầng, các đảng phái, các tôn giáo, các dân tộc đều phải đoàn kết chặt chẽ trong Mặt trận. Sức mạnh của chúng ta chính là ở sự đoàn kết ấy”.',
-                    'Vị trí chiến lược của Mặt trận: Mặt trận là nền, là gốc của sự đoàn kết. Đảng lãnh đạo cách mạng chính là bằng cách dựa vào Mặt trận để phát huy sức mạnh toàn dân.',
-                    {
-                        type: 'image',
-                        src: './assets/1f4a5042148eac350bd544cb28158e64anh-bac-ho-tu-lieu.jpg',
-                        caption: 'Ảnh tư liệu: Chủ tịch Hồ Chí Minh cùng các đại biểu đại diện các tầng lớp nhân dân.'
-                    }
+                    'Vị trí chiến lược của Mặt trận: Mặt trận là nền, là gốc của sự đoàn kết. Đảng lãnh đạo cách mạng chính là bằng cách dựa vào Mặt trận để phát huy sức mạnh toàn dân.'
                 ]
             }
         ],
