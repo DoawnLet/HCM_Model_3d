@@ -213,6 +213,23 @@ export class UIManager {
         classInfo.imageCaption || "Ảnh tư liệu";
     }
 
+    const videoContainer = document.getElementById("class-video-container");
+    const videoEl = document.getElementById("class-video");
+    const videoCaptionEl = document.getElementById("class-video-caption");
+    if (videoContainer && videoEl) {
+      if (classInfo.video) {
+        videoEl.src = classInfo.video;
+        if (videoCaptionEl) {
+          videoCaptionEl.innerText = classInfo.videoCaption || "Video tư liệu";
+        }
+        videoContainer.classList.remove("hidden");
+        videoEl.load();
+      } else {
+        videoEl.src = "";
+        videoContainer.classList.add("hidden");
+      }
+    }
+
     const articleMeta = document.getElementById("article-meta");
     const articleSubtitle = document.getElementById("article-subtitle");
     const articleEyebrow = document.getElementById("article-eyebrow");
@@ -250,24 +267,54 @@ export class UIManager {
             Array.isArray(section.paragraphs) &&
             section.paragraphs.length > 0
           ) {
-            const leadRow = document.createElement("div");
-            leadRow.className = "newspaper-paragraph-row";
-            const dropCap = document.createElement("span");
-            dropCap.className = "drop-cap";
-            dropCap.textContent = section.paragraphs[0]
-              .trim()
-              .charAt(0)
-              .toUpperCase();
-            const leadText = document.createElement("p");
-            parseTextWithLinks(section.paragraphs[0].trim().slice(1), leadText);
-            leadRow.appendChild(dropCap);
-            leadRow.appendChild(leadText);
-            sectionEl.appendChild(leadRow);
+            // Find the first string paragraph to use as lead with drop-cap
+            let leadIndex = -1;
+            for (let i = 0; i < section.paragraphs.length; i++) {
+              if (typeof section.paragraphs[i] === "string") {
+                leadIndex = i;
+                break;
+              }
+            }
 
-            section.paragraphs.slice(1).forEach((paragraph) => {
-              const p = document.createElement("p");
-              parseTextWithLinks(paragraph, p);
-              sectionEl.appendChild(p);
+            section.paragraphs.forEach((paragraph, idx) => {
+              if (typeof paragraph === "object" && paragraph && paragraph.type === "image") {
+                const imgCard = document.createElement("div");
+                imgCard.className = "article-image-card";
+                imgCard.style.margin = "14px 0";
+                
+                const img = document.createElement("img");
+                img.src = paragraph.src;
+                img.className = "article-image";
+                img.alt = paragraph.caption || "Ảnh minh họa";
+                
+                const caption = document.createElement("div");
+                caption.className = "article-caption";
+                caption.innerText = paragraph.caption || "";
+                
+                imgCard.appendChild(img);
+                imgCard.appendChild(caption);
+                sectionEl.appendChild(imgCard);
+              } else if (typeof paragraph === "string") {
+                if (idx === leadIndex) {
+                  const leadRow = document.createElement("div");
+                  leadRow.className = "newspaper-paragraph-row";
+                  const dropCap = document.createElement("span");
+                  dropCap.className = "drop-cap";
+                  dropCap.textContent = paragraph
+                    .trim()
+                    .charAt(0)
+                    .toUpperCase();
+                  const leadText = document.createElement("p");
+                  parseTextWithLinks(paragraph.trim().slice(1), leadText);
+                  leadRow.appendChild(dropCap);
+                  leadRow.appendChild(leadText);
+                  sectionEl.appendChild(leadRow);
+                } else {
+                  const p = document.createElement("p");
+                  parseTextWithLinks(paragraph, p);
+                  sectionEl.appendChild(p);
+                }
+              }
             });
           }
 
@@ -352,6 +399,10 @@ export class UIManager {
     if (this.dom.quizDialog) {
       this.dom.quizDialog.classList.remove("active");
       this.dom.quizDialog.classList.add("hidden");
+    }
+    const videoEl = document.getElementById("class-video");
+    if (videoEl) {
+      videoEl.pause();
     }
     this.hideInteractionPrompt();
   }
