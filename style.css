@@ -1140,7 +1140,6 @@ textarea {
   object-fit: cover;
   border: 1px solid rgba(31, 26, 23, 0.18);
   display: block;
-  filter: grayscale(0.98) contrast(1.06) sepia(0.24);
 }
 
 #quiz-dialog .article-caption {
