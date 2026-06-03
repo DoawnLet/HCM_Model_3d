@@ -1,32 +1,17 @@
-const DEFAULT_MODEL = (typeof import.meta.env !== "undefined" && import.meta.env.VITE_GEMINI_MODEL) || "gemini-2.0-flash";
+const DEFAULT_MODEL =
+  (typeof import.meta.env !== "undefined" &&
+    import.meta.env.VITE_GEMINI_MODEL) ||
+  "gemini-2.0-flash";
 
 function extractResponseText(payload) {
   const candidate = payload?.candidates?.[0];
   const parts = candidate?.content?.parts;
   if (!Array.isArray(parts)) return "";
 
-  let text = parts
+  const text = parts
     .map((part) => part?.text || "")
     .join("")
     .trim();
-
-  // Extract Google Search grounding sources if available
-  const metadata = candidate?.groundingMetadata;
-  if (metadata && Array.isArray(metadata.groundingChunks)) {
-    const sources = [];
-    metadata.groundingChunks.forEach((chunk) => {
-      const title = chunk?.web?.title || chunk?.web?.uri;
-      const uri = chunk?.web?.uri;
-      if (uri) {
-        sources.push(`- [${title}](${uri})`);
-      }
-    });
-
-    if (sources.length > 0) {
-      const uniqueSources = [...new Set(sources)];
-      text += `\n\n🌐 **Nguồn tham khảo từ Google Search:**\n${uniqueSources.join("\n")}`;
-    }
-  }
 
   return text;
 }
@@ -55,7 +40,6 @@ export async function generateGeminiReply({
           : undefined,
         contents,
         generationConfig,
-        tools: [{ googleSearch: {} }],
       }),
     },
   );

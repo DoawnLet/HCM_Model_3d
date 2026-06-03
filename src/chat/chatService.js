@@ -2,10 +2,69 @@ import { generateGeminiReply } from "./geminiClient.js";
 import { CLASS_DATA } from "../data.js";
 import { MILESTONES_CANONICAL } from "../data/milestones_canonical.js";
 
+const TEXTBOOK_KNOWLEDGE = `
+Nội dung cốt lõi của Giáo trình Tư tưởng Hồ Chí Minh về Đại đoàn kết dân tộc (NXB Chính trị Quốc gia Sự thật):
+
+1. Vai trò của đại đoàn kết toàn dân tộc:
+- Câu nói nổi tiếng của Hồ Chí Minh: "Lao động Việt Nam có thể gồm trong 8 chữ là: ĐOÀN KẾT TOÀN DÂN, PHỤNG SỰ TỔ QUỐC".
+- Cách mạng là sự nghiệp của quần chúng, do quần chúng, vì quần chúng. Đại đoàn kết là yêu cầu khách quan của cách mạng, là đòi hỏi tự giải phóng của nhân dân.
+- Đại đoàn kết là vấn đề có ý nghĩa chiến lược xuyên suốt cách mạng, quyết định thành công của cách mạng (Đoàn kết thì độc lập tự do; chia rẽ thì bị xâm lăng). "Đoàn kết, đoàn kết, đại đoàn kết. Thành công, thành công, đại thành công."
+
+2. Lực lượng của khối đại đoàn kết toàn dân tộc:
+- Chủ thể: Bao gồm toàn thể nhân dân, tất cả người Việt Nam yêu nước ở mọi giai cấp, tầng lớp, ngành, giới, lứa tuổi, dân tộc, tôn giáo, đảng phái và kiều bào nước ngoài. "Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và nhân dân thì ta đoàn kết với họ."
+- Nền tảng: Liên minh công nhân - nông dân - trí thức, đặt dưới sự lãnh đạo của Đảng. Công nông là "nền gốc" của đại đoàn kết (như cái nền của nhà, gốc của cây).
+- Hạt nhân: Sự đoàn kết thống nhất trong Đảng là hạt nhân quyết định sức mạnh lãnh đạo của khối đại đoàn kết.
+
+3. Điều kiện để xây dựng khối đại đoàn kết toàn dân tộc:
+- Một là: Lấy lợi ích chung làm điểm quy tụ, đồng thời tôn trọng các lợi ích khác biệt chính đáng. Lợi ích tối cao là độc lập, thống nhất của Tổ quốc, tự do, hạnh phúc của nhân dân (nước độc lập mà dân không hạnh phúc thì độc lập cũng vô nghĩa).
+- Hai là: Kế thừa truyền thống yêu nước, nhân nghĩa, đoàn kết của dân tộc qua hàng ngàn năm dựng nước và giữ nước.
+- Ba là: Có lòng khoan dung, độ lượng với con người. Trân trọng phần thiện dù nhỏ nhất ở mỗi người ("Năm ngón tay có ngón vắn ngón dài nhưng đều họp lại nơi bàn tay", đều là dòng dõi tổ tiên ta, là con Lạc cháu Hồng thì ai cũng có lòng ái quốc). Lấy tình thân ái cảm hóa người lầm đường lạc lối.
+- Bốn là: Có niềm tin vào nhân dân. Nguyên tắc "nước lấy dân làm gốc", "chở thuyền và lật thuyền cũng là dân", "cách mạng là sự nghiệp của quần chúng".
+
+4. Hình thức, nguyên tắc tổ chức của khối đại đoàn kết toàn dân tộc (Mặt trận dân tộc thống nhất):
+- Mặt trận dân tộc thống nhất là hình thức tổ chức để quy tụ mọi cá nhân và tổ chức yêu nước (Phản đế đồng minh, Mặt trận Việt Minh, Mặt trận Liên Việt, Mặt trận Tổ quốc Việt Nam...).
+- Nguyên tắc hoạt động của Mặt trận:
+  + Xây dựng trên nền tảng liên minh công - nông - trí thức và đặt dưới sự lãnh đạo duy nhất của Đảng.
+  + Hoạt động theo nguyên tắc hiệp thương dân chủ (bàn bạc công khai, đi đến nhất trí đồng thuận, loại trừ áp đặt).
+  + Đoàn kết lâu dài, chặt chẽ, chân thành, giúp đỡ nhau cùng tiến bộ (phương châm "cầu đồng tồn dị", vừa đoàn kết vừa đấu tranh phê bình trên lập trường thân ái).
+
+5. Phương thức xây dựng khối đại đoàn kết toàn dân tộc:
+- Một là: Làm tốt công tác vận động quần chúng (dân vận). Giáo dục, tuyên truyền, giúp nhân dân hiểu rõ quyền lợi và nghĩa vụ. Phương pháp dân vận phải phù hợp với tâm tư, nguyện vọng, phong tục tập quán của nhân dân.
+- Hai là: Thành lập đoàn thể, tổ chức quần chúng phù hợp với từng đối tượng (Công đoàn, Hội Nông dân, Đoàn Thanh niên, Hội Phụ nữ...).
+- Ba là: Các đoàn thể, tổ chức quần chúng được tập hợp và đoàn kết chặt chẽ trong Mặt trận dân tộc thống nhất.
+`;
+
 const VIETNAMESE_STOP_WORDS = new Set([
-  "cho", "toi", "hoi", "muon", "hieu", "con", "gi", "nua", "khong", 
-  "co", "de", "lam", "va", "nay", "trong", "cua", "la", "tai", "sao",
-  "ai", "thi", "nhung", "cac", "mot", "hai", "ba", "ba", "bon", "nam", "sau"
+  "cho",
+  "toi",
+  "hoi",
+  "muon",
+  "hieu",
+  "con",
+  "gi",
+  "nua",
+  "khong",
+  "co",
+  "de",
+  "lam",
+  "va",
+  "nay",
+  "trong",
+  "cua",
+  "la",
+  "tai",
+  "sao",
+  "ai",
+  "thi",
+  "nhung",
+  "cac",
+  "mot",
+  "hai",
+  "ba",
+  "ba",
+  "bon",
+  "nam",
+  "sau",
 ]);
 
 function normalizeText(value) {
@@ -62,7 +121,9 @@ function findRelevantMilestone(userText) {
     if (idx >= 0 && idx < CLASS_DATA.length) return CLASS_DATA[idx];
   }
 
-  const numMatch = query.match(/(?:moc|mộc|mọc|phan|phần|bai|bài|so|số|chủ đề|chu de)\s*([1-6]|mot|một|hai|ba|bá|bon|bốn|nam|năm|sau|sáu)/);
+  const numMatch = query.match(
+    /(?:moc|mộc|mọc|phan|phần|bai|bài|so|số|chủ đề|chu de)\s*([1-6]|mot|một|hai|ba|bá|bon|bốn|nam|năm|sau|sáu)/,
+  );
   if (numMatch) {
     const numStr = numMatch[1];
     let index = -1;
@@ -80,7 +141,11 @@ function findRelevantMilestone(userText) {
 
   const keywords = query
     .split(/\s+/)
-    .filter((word) => (word.length > 2 || /^\d+$/.test(word)) && !VIETNAMESE_STOP_WORDS.has(word));
+    .filter(
+      (word) =>
+        (word.length > 2 || /^\d+$/.test(word)) &&
+        !VIETNAMESE_STOP_WORDS.has(word),
+    );
   if (keywords.length === 0) return null;
 
   const scored = CLASS_DATA.map((item) => {
@@ -118,7 +183,9 @@ function findCanonicalMatch(userText) {
 
   const keywords = query
     .split(/\s+/)
-    .filter((w) => (w.length > 2 || /^\d+$/.test(w)) && !VIETNAMESE_STOP_WORDS.has(w));
+    .filter(
+      (w) => (w.length > 2 || /^\d+$/.test(w)) && !VIETNAMESE_STOP_WORDS.has(w),
+    );
   if (keywords.length === 0) return null;
 
   const scored = MILESTONES_CANONICAL.map((item) => {
@@ -140,37 +207,61 @@ export function findExactOrCloseQAMatch(userText, canonical) {
   const query = normalizeText(userText);
   if (!query || query.length < 5) return null;
 
-  // Helper to check if two normalized questions match
-  const isMatch = (q1, q2) => {
-    if (q1 === q2) return true;
-    if (q1.length > 15 && q2.length > 15) {
-      if (q1.includes(q2)) {
-        const minRatio = q2.length > 30 ? 0.5 : 0.75;
-        if (q2.length / q1.length > minRatio) return true;
+  // Filter significant keywords from query
+  const queryWords = query
+    .split(/\s+/)
+    .filter(
+      (word) =>
+        (word.length > 2 || /^\d+$/.test(word)) &&
+        !VIETNAMESE_STOP_WORDS.has(word),
+    );
+
+  if (queryWords.length === 0) return null;
+
+  let bestQA = null;
+  let bestScore = 0;
+
+  // Helper to calculate keyword match score for a question
+  const calculateScore = (qaText) => {
+    let score = 0;
+    const normQA = normalizeText(qaText);
+    queryWords.forEach((word) => {
+      if (normQA.includes(word)) {
+        score++;
       }
-      if (q2.includes(q1)) {
-        const minRatio = q1.length > 30 ? 0.5 : 0.75;
-        if (q1.length / q2.length > minRatio) return true;
-      }
-    }
-    return false;
+    });
+    return score;
   };
 
-  // 1. Check in the matched canonical milestone first (higher priority)
+  // 1. Search in canonical milestone first (higher priority)
   if (canonical && Array.isArray(canonical.qas)) {
     for (const qa of canonical.qas) {
-      if (isMatch(normalizeText(qa.q), query)) return qa;
+      const score = calculateScore(qa.q);
+      if (score > bestScore) {
+        bestScore = score;
+        bestQA = qa;
+      }
     }
   }
 
-  // 2. Fallback to search all milestones
+  // 2. Search all milestones
   for (const milestone of MILESTONES_CANONICAL) {
     if (milestone === canonical) continue;
     if (Array.isArray(milestone.qas)) {
       for (const qa of milestone.qas) {
-        if (isMatch(normalizeText(qa.q), query)) return qa;
+        const score = calculateScore(qa.q);
+        if (score > bestScore) {
+          bestScore = score;
+          bestQA = qa;
+        }
       }
     }
+  }
+
+  // Threshold: Require at least 2 significant words to match OR at least 35% of query words
+  const threshold = Math.max(2, Math.floor(queryWords.length * 0.35));
+  if (bestScore >= threshold) {
+    return bestQA;
   }
 
   return null;
@@ -197,24 +288,54 @@ function buildSystemInstruction(classInfo) {
   }
 
   return [
-    "Bạn là NPC trong một trò chơi 3D giáo dục về tư tưởng Hồ Chí Minh và Đại đoàn kết toàn dân tộc.",
-    "Trả lời hoàn toàn bằng tiếng Việt, tự nhiên, ngắn gọn vừa đủ, đúng vai NPC, không nhắc đến prompt hay nội bộ hệ thống.",
-    "Người chơi được hỏi rộng quanh mọi mốc nội dung trong triển lãm. Hãy trả lời theo mốc phù hợp nhất, không chỉ giới hạn ở mốc đang mở.",
-    "Nếu câu hỏi liên quan đến một mốc khác, hãy chuyển sang giải thích mốc đó một cách mượt mà và giữ đúng bối cảnh bảo tàng.",
-    "Không lặp nguyên văn tên mốc trong câu trả lời nếu có thể tránh được; hãy diễn giải bằng chủ đề, ý nghĩa hoặc khái niệm tương ứng.",
-    "Nếu người chơi hỏi về thử thách/quiz, hãy khuyên họ mở phần thử thách trong game.",
-    `Chủ đề hiện tại: ${title}.`,
-    summary ? `Tóm tắt: ${summary}` : "",
-    quote ? `Câu nhấn mạnh: ${quote}` : "",
-    sectionLines ? `Các ý chính:\n${sectionLines}` : "",
-    milestoneLines ? `Các mốc đang có trong triển lãm:\n${milestoneLines}` : "",
+    "Bạn là hướng dẫn viên ảo (NPC) trong không gian Triển lãm 3D học tập Tư tưởng Hồ Chí Minh về Đại đoàn kết dân tộc.",
+    "Nhiệm vụ của bạn là trả lời các câu hỏi của người dùng dựa trên nội dung trong Giáo trình Tư tưởng Hồ Chí Minh (NXB Chính trị Quốc gia Sự thật).",
+    "",
+    "CÁC NGUYÊN TẮC TRẢ LỜI QUAN TRỌNG:",
+    "1. Chỉ dùng kiến thức đã cung cấp trong phần giáo trình và dữ liệu mốc học tập bên dưới. Không dùng kiến thức ngoài và không suy diễn thêm.",
+    "2. Trả lời đúng trọng tâm câu hỏi, đi thẳng vào ý chính cốt lõi, tránh lan man.",
+    "3. Diễn đạt theo ý, không chép nguyên văn dài từ giáo trình, không cần trích dẫn nguồn.",
+    "4. Nếu câu hỏi có từ 2 ý trở lên, phải trả lời ĐỦ từng ý, không bỏ sót ý nào.",
+    "5. Với câu hỏi nhiều ý, trình bày theo dạng: 'Ý 1:', 'Ý 2:' (mỗi ý 1-2 câu, đi thẳng vào trọng tâm).",
+    "6. Độ dài ưu tiên: 2-6 câu ngắn gọn, mạch lạc, dễ hiểu.",
+    "7. Không trả lời chung chung. Mỗi câu phải gắn trực tiếp với yêu cầu người dùng vừa hỏi.",
+    "8. Nếu câu hỏi mơ hồ hoặc thiếu dữ liệu từ giáo trình, hãy nói rõ chưa đủ thông tin và đề nghị người dùng hỏi cụ thể hơn.",
+    "9. Nếu người chơi hỏi về thử thách/quiz, hãy khuyên họ mở phần thử thách tương ứng trên màn hình game.",
+    "",
+    "KIẾN THỨC CỐT LÕI TỪ GIÁO TRÌNH TƯ TƯỞNG HỒ CHÍ MINH:",
+    TEXTBOOK_KNOWLEDGE,
+    "",
     canonicalQAs
       ? `Dưới đây là một số câu hỏi thường gặp và câu trả lời chuẩn hóa liên quan đến chủ đề này. Hãy tham khảo chúng để trả lời chính xác, giữ đúng tinh thần và nội dung lịch sử:\n${canonicalQAs}`
       : "",
-    "Phong cách: thân thiện, mạch lạc, giống người kể chuyện trong bảo tàng ảo.",
+    "",
+    `Chủ đề hiện tại bạn đang đứng: ${title}.`,
+    summary ? `Tóm tắt chủ đề này: ${summary}` : "",
+    quote ? `Trích dẫn tiêu biểu của chủ đề: ${quote}` : "",
+    sectionLines ? `Các ý chính của chủ đề:\n${sectionLines}` : "",
+    milestoneLines
+      ? `Các mốc chủ đề khác có trong triển lãm:\n${milestoneLines}`
+      : "",
   ]
     .filter(Boolean)
     .join("\n");
+}
+
+function isMultiIntentQuestion(userText) {
+  const raw = String(userText || "");
+  const query = normalizeText(raw);
+  if (!query) return false;
+
+  const questionMarks = (raw.match(/\?/g) || []).length;
+  if (questionMarks >= 2) return true;
+
+  const intentHits = (
+    query.match(
+      /\b(la gi|bao gom|gom nhung|the nao|nhu the nao|vi sao|tai sao|vai tro|y nghia|dieu kien|nguyen tac|phuong thuc)\b/g,
+    ) || []
+  ).length;
+
+  return intentHits >= 2;
 }
 
 function formatFullMilestoneContent(milestone) {
@@ -268,10 +389,6 @@ function buildResponseFromContext(classInfo, userText) {
   const canonical = findCanonicalMatch(userText);
   const milestone = findRelevantMilestone(userText) || canonical || classInfo;
   const title = milestone?.title || classInfo?.title || "nhân vật";
-  const summary =
-    milestone?.summary ||
-    classInfo?.summary ||
-    "Tôi có thể kể thêm theo nội dung của chủ đề này.";
   const quote = milestone?.quote || classInfo?.quote || "";
   const sections = Array.isArray(milestone?.sections)
     ? milestone.sections
@@ -283,46 +400,41 @@ function buildResponseFromContext(classInfo, userText) {
     return "Bạn có thể hỏi tôi về ý nghĩa, bối cảnh, hoặc các mối liên hệ giữa những mốc đang có trong triển lãm.";
   }
 
-  if (/quiz|thu thach|cau hoi|kiem tra/.test(query)) {
-    return "Nếu bạn muốn kiểm tra nhanh kiến thức, hãy mở phần thử thách tương ứng trong game.";
-  }
-
-  // If user requests full content / title and content / details
-  if (/chi tiet|day du|tat ca|tieu de|noi dung o moc|noi dung o phan|noi dung o bai|noi dung moc|con gi nua|ke tiep|tiep tuc|chi tiet hon/.test(query)) {
-    return formatFullMilestoneContent(milestone);
-  }
-
-  if (/tom tat|tom|noi dung chinh|y nghia|vai tro|la gi|giup gi/.test(query)) {
-    return `${summary}${quote ? ` Câu nhấn mạnh liên quan: “${quote.replace(/^“|”$/g, "")}”.` : ""}`;
-  }
-
-  if (
-    /phan|muc|section|giai thich/.test(query) &&
-    sections.length > 0
-  ) {
-    const highlights = sections
-      .slice(0, 2)
-      .map(
-        (section, index) =>
-          `${index + 1}. ${section.title}: ${pickSectionSummary(section)}`,
-      )
-      .join(" ");
-    return `${title} có vài ý chính rất đáng chú ý. ${highlights}`;
-  }
-
-  if (/\b(chao|hello|hi|xin chao)\b/.test(query)) {
-    return "Xin chào. Bạn có thể hỏi quanh nội dung đang trưng bày hoặc chuyển sang mốc khác trong triển lãm.";
-  }
-
   // Check for exact or high-similarity canonical QA match first
   const qaMatch = findExactOrCloseQAMatch(userText, canonical);
   if (qaMatch) {
     return qaMatch.a;
   }
 
-  // If there's a canonical entry and user asks for summary/meaning, return shortSummary
-  if (canonical && /tom tat|tom|noi dung chinh|y nghia|vai tro|la gi|giup gi/.test(query)) {
-    return canonical.shortSummary;
+  if (/quiz|thu thach|cau hoi|kiem tra/.test(query)) {
+    return "Nếu bạn muốn kiểm tra nhanh kiến thức, hãy mở phần thử thách tương ứng trong game.";
+  }
+
+  // If user requests full content / title and content / details
+  if (
+    /chi tiet|day du|tat ca|tieu de|noi dung o moc|noi dung o phan|noi dung o bai|noi dung moc|con gi nua|ke tiep|tiep tuc|chi tiet hon/.test(
+      query,
+    )
+  ) {
+    return formatFullMilestoneContent(milestone);
+  }
+
+  if (/tom tat|tom|noi dung chinh|y nghia|vai tro|la gi|giup gi/.test(query)) {
+    const milestoneSummary =
+      milestone?.shortSummary || milestone?.summary || classInfo?.summary || "";
+    return `${milestoneSummary}${quote ? ` Câu nhấn mạnh liên quan: “${quote.replace(/^“|”$/g, "")}”.` : ""}`;
+  }
+
+  if (/phan|muc|section|giai thich/.test(query) && sections.length > 0) {
+    const highlights = sections
+      .slice(0, 2)
+      .map((section, index) => `${index + 1}. ${section.title}`)
+      .join("; ");
+    return `${title} có các phần chính sau: ${highlights}. Bạn có câu hỏi cụ thể nào về các phần này không?`;
+  }
+
+  if (/\b(chao|hello|hi|xin chao)\b/.test(query)) {
+    return "Xin chào. Bạn có thể hỏi quanh nội dung đang trưng bày hoặc chuyển sang mốc khác trong triển lãm.";
   }
 
   const relatedSection = sections.find((section) => {
@@ -336,15 +448,26 @@ function buildResponseFromContext(classInfo, userText) {
   });
 
   if (relatedSection) {
-    return `${pickSectionSummary(relatedSection)} Nếu cần, tôi có thể giải thích sâu hơn phần “${relatedSection.title}”.`;
+    const milestoneSummary =
+      milestone?.shortSummary ||
+      "Khối đại đoàn kết toàn dân tộc mang ý nghĩa sâu sắc.";
+    return `Về phần "${relatedSection.title}", giáo trình nêu rõ ý nghĩa cốt lõi: ${milestoneSummary} Bạn có muốn tìm hiểu sâu hơn về nội dung này không?`;
   }
 
-  return `Nội dung này xoay quanh: ${summary} Nếu muốn, tôi cũng có thể chuyển sang giải thích một mốc liên quan khác trong triển lãm.`;
+  const defaultSummary =
+    milestone?.shortSummary || milestone?.summary || classInfo?.summary || "";
+  return `Vấn đề này xoay quanh nội dung: ${defaultSummary} Bạn có muốn hỏi thêm câu hỏi cụ thể nào không?`;
 }
 
 export function createChatResponder() {
-  const apiKey = (typeof import.meta.env !== "undefined" && import.meta.env.VITE_GEMINI_API_KEY) || "";
-  const model = (typeof import.meta.env !== "undefined" && import.meta.env.VITE_GEMINI_MODEL) || "gemini-2.0-flash";
+  const apiKey =
+    (typeof import.meta.env !== "undefined" &&
+      import.meta.env.VITE_GEMINI_API_KEY) ||
+    "";
+  const model =
+    (typeof import.meta.env !== "undefined" &&
+      import.meta.env.VITE_GEMINI_MODEL) ||
+    "gemini-2.0-flash";
 
   return {
     async reply({ classInfo, userText, history = [] }) {
@@ -352,30 +475,20 @@ export function createChatResponder() {
       const matchedMilestone = canonical || findRelevantMilestone(userText);
       const activeInfo = matchedMilestone || classInfo;
 
-      // Check for exact or high-similarity canonical QA match first
-      const qaMatch = findExactOrCloseQAMatch(userText, canonical);
-      if (qaMatch) {
-        // Find which milestone this QA belongs to so we can transition to it
-        const targetMilestone = MILESTONES_CANONICAL.find((m) =>
-          (m.qas || []).some((qa) => qa.q === qaMatch.q)
-        );
-        const resolvedClassInfo = targetMilestone
-          ? (CLASS_DATA.find((item) => item.id === targetMilestone.id) || activeInfo)
-          : activeInfo;
-        return { reply: qaMatch.a, activeClassInfo: resolvedClassInfo };
-      }
-
       const systemInstruction = buildSystemInstruction(activeInfo);
+      const multiIntentGuard = isMultiIntentQuestion(userText)
+        ? "\n\nYÊU CẦU BỔ SUNG CHO CÂU HỎI HIỆN TẠI: Câu hỏi này có nhiều ý. BẮT BUỘC trả lời đủ từng ý theo định dạng 'Ý 1:', 'Ý 2:'..., không bỏ sót ý nào."
+        : "";
       const contents = buildConversationSnapshot(history);
 
       try {
         const reply = await generateGeminiReply({
           apiKey,
           model,
-          systemInstruction,
+          systemInstruction: `${systemInstruction}${multiIntentGuard}`,
           contents,
           generationConfig: {
-            temperature: 0.65,
+            temperature: 0.35,
             topP: 0.95,
             topK: 40,
             maxOutputTokens: 220,
