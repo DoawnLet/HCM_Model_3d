@@ -7,6 +7,8 @@ export const CLASS_DATA = [
         hexColor: '#d97706',
         image: './assets/doan-ket.jpg',
         imageCaption: 'Ảnh tư liệu: Đại hội đại biểu toàn dân tộc.',
+        video: './assets/p_1.mp4',
+        videoCaption: 'Video tư liệu: Sức mạnh Đại đoàn kết toàn dân tộc.',
         quote: '“Đoàn kết là một chính sách dân tộc, không phải là một thủ đoạn chính trị.”',
         summary: 'Trong tư tưởng của Hồ Chí Minh, đại đoàn kết toàn dân tộc giữ vị trí đặc biệt quan trọng và là vấn đề có ý nghĩa chiến lược đối với cách mạng Việt Nam.',
         sections: [
@@ -50,6 +52,8 @@ export const CLASS_DATA = [
         hexColor: '#0ea5e9',
         image: './assets/Luc-Luong.png',
         imageCaption: 'Ảnh minh họa: Giai cấp công nhân, nông dân và tầng lớp trí thức là nòng cốt của khối đại đoàn kết.',
+        video: './assets/0603.mp4',
+        videoCaption: 'Video tư liệu: Lực lượng đại đoàn kết toàn dân.',
         quote: '“Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và phục vụ nhân dân thì ta đoàn kết với họ.”',
         summary: 'Khối đại đoàn kết toàn dân tộc bao gồm toàn thể nhân dân Việt Nam, lấy liên minh công nhân - nông dân - trí thức làm nền tảng dưới sự lãnh đạo của Đảng.',
         sections: [

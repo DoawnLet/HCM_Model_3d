@@ -1127,6 +1127,7 @@ textarea {
 }
 
 #quiz-dialog .article-image-card,
+#quiz-dialog .article-video-card,
 #quiz-dialog .article-quote-card,
 #quiz-dialog .article-note-card {
   background: rgba(255, 250, 242, 0.84);
@@ -1137,6 +1138,14 @@ textarea {
 #quiz-dialog .article-image {
   width: 100%;
   aspect-ratio: 1 / 0.88;
+  object-fit: cover;
+  border: 1px solid rgba(31, 26, 23, 0.18);
+  display: block;
+}
+
+#quiz-dialog .article-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   border: 1px solid rgba(31, 26, 23, 0.18);
   display: block;

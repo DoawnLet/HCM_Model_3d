@@ -213,6 +213,23 @@ export class UIManager {
         classInfo.imageCaption || "Ảnh tư liệu";
     }
 
+    const videoContainer = document.getElementById("class-video-container");
+    const videoEl = document.getElementById("class-video");
+    const videoCaptionEl = document.getElementById("class-video-caption");
+    if (videoContainer && videoEl) {
+      if (classInfo.video) {
+        videoEl.src = classInfo.video;
+        if (videoCaptionEl) {
+          videoCaptionEl.innerText = classInfo.videoCaption || "Video tư liệu";
+        }
+        videoContainer.classList.remove("hidden");
+        videoEl.load();
+      } else {
+        videoEl.src = "";
+        videoContainer.classList.add("hidden");
+      }
+    }
+
     const articleMeta = document.getElementById("article-meta");
     const articleSubtitle = document.getElementById("article-subtitle");
     const articleEyebrow = document.getElementById("article-eyebrow");
@@ -382,6 +399,10 @@ export class UIManager {
     if (this.dom.quizDialog) {
       this.dom.quizDialog.classList.remove("active");
       this.dom.quizDialog.classList.add("hidden");
+    }
+    const videoEl = document.getElementById("class-video");
+    if (videoEl) {
+      videoEl.pause();
     }
     this.hideInteractionPrompt();
   }
