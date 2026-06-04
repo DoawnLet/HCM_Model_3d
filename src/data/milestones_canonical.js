@@ -167,6 +167,14 @@ export const MILESTONES_CANONICAL = [
       "Xây dựng đoàn kết cần điểm quy tụ chung, truyền thống dân tộc, lòng khoan dung và niềm tin vào nhân dân.",
     qas: [
       {
+        q: "Vì sao phải tôn trọng điểm khác biệt giữa các giai cấp, tầng lớp, dân tộc và tôn giáo khi xây dựng đoàn kết?",
+        a: "Phải tôn trọng sự khác biệt vì 3 lý do cốt lõi:\n1. Khác biệt là thực tế khách quan, không thể xóa bỏ: Mỗi giai cấp, tầng lớp, dân tộc, tôn giáo đều có lợi ích và bản sắc riêng hợp pháp. Cưỡng ép xóa bỏ sự khác biệt sẽ gây phản tác dụng, làm tan vỡ đoàn kết.\n2. Tôn trọng khác biệt mới tạo được sự đồng thuận tự nguyện: Chỉ khi lợi ích chính đáng của mỗi bên được ghi nhận, người ta mới thực sự tự nguyện đoàn kết vì mục tiêu chung.\n3. Nguyên tắc \"cầu đồng tồn dị\": Tìm điểm tương đồng để tập hợp, tôn trọng điểm dị biệt để không ai cảm thấy bị gạt ra ngoài — đây là nền tảng của đoàn kết bền vững theo tư tưởng Hồ Chí Minh.",
+      },
+      {
+        q: "Tại sao tôn trọng lợi ích khác biệt chính đáng là điều kiện để xây dựng đoàn kết?",
+        a: "Vì trong xã hội, mỗi giai cấp, tầng lớp, dân tộc và tôn giáo đều có lợi ích riêng chính đáng. Nếu những lợi ích đó bị phủ nhận hoặc bị cưỡng ép triệt tiêu, người ta sẽ không tự nguyện đứng trong khối đoàn kết. Ngược lại, khi lợi ích riêng được tôn trọng và bảo vệ, mọi người mới sẵn lòng hướng đến mục tiêu chung của dân tộc.",
+      },
+      {
         q: "Để xây dựng khối đại đoàn kết bền vững cần có mấy điều kiện cơ bản?",
         a: "Cần có 4 điều kiện cơ bản:\n1. Lấy lợi ích chung làm điểm quy tụ, tôn trọng lợi ích khác biệt chính đáng.\n2. Kế thừa truyền thống yêu nước, nhân nghĩa, đoàn kết của dân tộc.\n3. Phải có lòng khoan dung, độ lượng với con người.\n4. Phải có niềm tin vào nhân dân.",
       },
@@ -206,6 +214,10 @@ export const MILESTONES_CANONICAL = [
         q: "Làm sao để giải quyết hài hòa giữa lợi ích chung của Tổ quốc và lợi ích riêng của cá nhân?",
         a: "Phải đặt lợi ích chung của tối cao của Tổ quốc lên hàng đầu, coi đó là nền tảng. Đồng thời, các chính sách của Nhà nước phải quan tâm, chăm lo và bảo vệ thỏa đáng những quyền lợi, lợi ích hợp pháp, chính đáng của từng cá nhân và giai tầng trong xã hội.",
       },
+      {
+        q: "Trong bối cảnh hiện đại với sự phân hóa giàu nghèo, làm thế nào để dung hòa giữa lợi ích riêng của từng giai tầng với khối đại đoàn kết chung mà không rơi vào hình thức hay khiên cưỡng?",
+        a: "Để dung hòa lợi ích riêng và chung trong bối cảnh hiện đại một cách thực chất, cần thực hiện:\n1. Đặt lợi ích tối cao của quốc gia - dân tộc (độc lập, tự do, phát triển đất nước) làm điểm quy tụ chung lớn nhất.\n2. Tôn trọng và đáp ứng các lợi ích khác biệt chính đáng, hợp pháp của mỗi cá nhân, giai tầng; không cào bằng hay áp đặt cưỡng ép.\n3. Thực hiện tốt các chính sách an sinh xã hội, thu hẹp khoảng cách giàu nghèo để đảm bảo công bằng và sự đồng thuận tự nguyện.\n4. Xây dựng cơ chế hiệp thương dân chủ chân thành, để mọi giai tầng đều được lắng nghe và đóng góp vào mục tiêu chung.",
+      },
     ],
     keywords: [
       "điểm quy tụ",
@@ -214,6 +226,14 @@ export const MILESTONES_CANONICAL = [
       "niềm tin vào dân",
       "tập hợp lợi ích",
       "giáo dục lịch sử",
+      "tôn trọng khác biệt",
+      "lợi ích khác biệt",
+      "giai cấp",
+      "tầng lớp",
+      "tôn giáo",
+      "dân tộc",
+      "cầu đồng tồn dị",
+      "điều kiện xây dựng",
     ],
     doNotSay: [
       "kêu gọi bằng mệnh lệnh áp đặt",
@@ -265,6 +285,10 @@ export const MILESTONES_CANONICAL = [
       {
         q: "Vừa đoàn kết vừa đấu tranh có làm rạn nứt Mặt trận không?",
         a: "Không. Đấu tranh trong nội bộ Mặt trận theo tư tưởng Hồ Chí Minh là đấu tranh trên tinh thần xây dựng, sử dụng phương pháp tự phê bình và phê bình, thuyết phục, cảm hóa. Mục đích của đấu tranh không phải là chia rẽ, mà là để khắc phục khuyết điểm, làm rõ lẽ phải, đạt tới sự đoàn kết rộng rãi và bền vững hơn trên cơ sở lợi ích tối cao của dân tộc.",
+      },
+      {
+        q: "Trong quá trình cách mạng, khi xảy ra xung đột lợi ích gay gắt giữa các giai cấp, làm thế nào để giữ vững khối đại đoàn kết mà không làm mất đi bản chất cách mạng của Đảng?",
+        a: "Theo tư tưởng Hồ Chí Minh, để giữ vững khối đại đoàn kết khi có xung đột lợi ích giai cấp mà không mất bản chất cách mạng của Đảng, cần thực hiện:\n1. Đặt lợi ích tối cao của dân tộc (độc lập, tự do) lên hàng đầu làm điểm quy tụ chung.\n2. Xây dựng khối đại đoàn kết trên nền tảng liên minh công - nông - trí thức và đặt dưới sự lãnh đạo duy nhất của Đảng Cộng sản để giữ vững bản chất cách mạng.\n3. Giải quyết hài hòa các mối quan hệ lợi ích: vừa bảo vệ quyền lợi cơ bản của công - nông, vừa tôn trọng và bảo vệ lợi ích chính đáng của các giai tầng khác (như địa chủ kháng chiến, tư sản dân tộc).\n4. Áp dụng phương châm \"vừa đoàn kết, vừa đấu tranh\": dùng hiệp thương dân chủ, thuyết phục để giải quyết mâu thuẫn nội bộ, tránh thỏa hiệp vô nguyên tắc.",
       },
     ],
     keywords: [
