@@ -140,7 +140,7 @@ function findRelevantMilestone(userText) {
   }
 
   const keywords = query
-    .split(/\s+/)
+    .split(/[^a-z0-9]+/i)
     .filter(
       (word) =>
         (word.length > 2 || /^\d+$/.test(word)) &&
@@ -167,8 +167,9 @@ function findRelevantMilestone(userText) {
         .join(" "),
     );
 
+    const searchableWords = new Set(searchableText.split(/[^a-z0-9]+/i).filter(Boolean));
     const score = keywords.reduce(
-      (total, keyword) => total + (searchableText.includes(keyword) ? 1 : 0),
+      (total, keyword) => total + (searchableWords.has(keyword) ? 1 : 0),
       0,
     );
     return { item, score };
@@ -182,34 +183,35 @@ function findCanonicalMatch(userText) {
   if (!query) return null;
 
   const keywords = query
-    .split(/\s+/)
+    .split(/[^a-z0-9]+/i)
     .filter(
       (w) => (w.length > 2 || /^\d+$/.test(w)) && !VIETNAMESE_STOP_WORDS.has(w),
     );
   if (keywords.length === 0) return null;
 
   const scored = MILESTONES_CANONICAL.map((item) => {
-    const hay = normalizeText(
+    const hayText = normalizeText(
       [
         item.shortSummary,
         (item.keywords || []).join(" "),
         (item.qas || []).map((q) => q.q).join(" "),
       ].join(" "),
     );
-    const score = keywords.reduce((t, k) => t + (hay.includes(k) ? 1 : 0), 0);
+    const hayWords = new Set(hayText.split(/[^a-z0-9]+/i).filter(Boolean));
+    const score = keywords.reduce((t, k) => t + (hayWords.has(k) ? 1 : 0), 0);
     return { item, score };
   }).sort((a, b) => b.score - a.score);
 
   return scored[0]?.score > 0 ? scored[0].item : null;
 }
 
-export function findExactOrCloseQAMatch(userText, canonical) {
+export function findExactOrCloseQAMatch(userText, canonical, { lowerThreshold = false } = {}) {
   const query = normalizeText(userText);
-  if (!query || query.length < 5) return null;
+  if (!query || query.length < 4) return null;
 
   // Filter significant keywords from query
   const queryWords = query
-    .split(/\s+/)
+    .split(/[^a-z0-9]+/i)
     .filter(
       (word) =>
         (word.length > 2 || /^\d+$/.test(word)) &&
@@ -218,25 +220,66 @@ export function findExactOrCloseQAMatch(userText, canonical) {
 
   if (queryWords.length === 0) return null;
 
+  // Helper to extract unigrams, bigrams, and trigrams
+  const getNGrams = (text) => {
+    const words = normalizeText(text).split(/[^a-z0-9]+/i).filter(Boolean);
+    const unigrams = new Set();
+    const bigrams = new Set();
+    const trigrams = new Set();
+
+    for (let i = 0; i < words.length; i++) {
+      const w1 = words[i];
+      if (w1.length > 2 || /^\d+$/.test(w1)) {
+        if (!VIETNAMESE_STOP_WORDS.has(w1)) {
+          unigrams.add(w1);
+        }
+      }
+      if (i < words.length - 1) {
+        bigrams.add(`${words[i]}_${words[i+1]}`);
+      }
+      if (i < words.length - 2) {
+        trigrams.add(`${words[i]}_${words[i+1]}_${words[i+2]}`);
+      }
+    }
+    return { unigrams, bigrams, trigrams };
+  };
+
+  const queryNGrams = getNGrams(userText);
+
   let bestQA = null;
   let bestScore = 0;
 
-  // Helper to calculate keyword match score for a question
-  const calculateScore = (qaText) => {
+  // Helper to calculate keyword match score based on unigrams, bigrams, and trigrams
+  const calculateScore = (qa) => {
     let score = 0;
-    const normQA = normalizeText(qaText);
-    queryWords.forEach((word) => {
-      if (normQA.includes(word)) {
-        score++;
-      }
+    const qNGrams = getNGrams(qa.q);
+    const aNGrams = getNGrams(qa.a);
+
+    // 1. Unigram match (word matching)
+    queryNGrams.unigrams.forEach((word) => {
+      if (qNGrams.unigrams.has(word)) score += 2;
+      else if (aNGrams.unigrams.has(word)) score += 1;
     });
+
+    // 2. Bigram match (phrase matching)
+    queryNGrams.bigrams.forEach((bg) => {
+      if (qNGrams.bigrams.has(bg)) score += 8;
+      else if (aNGrams.bigrams.has(bg)) score += 4;
+    });
+
+    // 3. Trigram match (extended phrase matching)
+    queryNGrams.trigrams.forEach((tg) => {
+      if (qNGrams.trigrams.has(tg)) score += 15;
+      else if (aNGrams.trigrams.has(tg)) score += 8;
+    });
+
     return score;
   };
 
   // 1. Search in canonical milestone first (higher priority)
   if (canonical && Array.isArray(canonical.qas)) {
     for (const qa of canonical.qas) {
-      const score = calculateScore(qa.q);
+      const score = calculateScore(qa);
       if (score > bestScore) {
         bestScore = score;
         bestQA = qa;
@@ -249,7 +292,7 @@ export function findExactOrCloseQAMatch(userText, canonical) {
     if (milestone === canonical) continue;
     if (Array.isArray(milestone.qas)) {
       for (const qa of milestone.qas) {
-        const score = calculateScore(qa.q);
+        const score = calculateScore(qa);
         if (score > bestScore) {
           bestScore = score;
           bestQA = qa;
@@ -258,13 +301,46 @@ export function findExactOrCloseQAMatch(userText, canonical) {
     }
   }
 
-  // Threshold: Require at least 2 significant words to match OR at least 35% of query words
-  const threshold = Math.max(2, Math.floor(queryWords.length * 0.35));
+  // Threshold: require enough keyword overlap (based on unigram set size)
+  const minWords = lowerThreshold ? 1 : 2;
+  const pct = lowerThreshold ? 0.25 : 0.30;
+  const threshold = Math.max(minWords, Math.floor(queryNGrams.unigrams.size * pct)) * 2;
   if (bestScore >= threshold) {
     return bestQA;
   }
 
   return null;
+}
+
+/**
+ * Handle multi-part questions: split by '?', find QA matches for each sub-question,
+ * and combine answers with 'Ý 1:', 'Ý 2:' labels.
+ */
+function findMultiPartQAMatches(userText) {
+  const raw = String(userText || "");
+  const parts = raw.split("?").map(p => p.trim()).filter(p => p.length > 8);
+
+  if (parts.length < 2) {
+    // Single question — use standard matching
+    const canonical = findCanonicalMatch(userText);
+    const match = findExactOrCloseQAMatch(userText, canonical);
+    return match ? [match] : [];
+  }
+
+  // Multiple sub-questions — find best QA for each
+  const matches = [];
+  const usedAnswers = new Set();
+
+  for (const part of parts) {
+    const partCanonical = findCanonicalMatch(part);
+    const match = findExactOrCloseQAMatch(part, partCanonical, { lowerThreshold: true });
+    if (match && !usedAnswers.has(match.a)) {
+      matches.push(match);
+      usedAnswers.add(match.a);
+    }
+  }
+
+  return matches;
 }
 
 function buildSystemInstruction(classInfo) {
@@ -278,35 +354,44 @@ function buildSystemInstruction(classInfo) {
     .join("\n");
   const milestoneLines = getMilestoneOverview();
 
-  // Find corresponding canonical Q&As
-  let canonicalQAs = "";
-  const canonical = MILESTONES_CANONICAL.find((m) => m.id === classInfo?.id);
-  if (canonical && Array.isArray(canonical.qas)) {
-    canonicalQAs = canonical.qas
-      .map((qa) => `Hỏi: ${qa.q}\nĐáp: ${qa.a}`)
-      .join("\n\n");
+  // Collect ALL canonical Q&As from ALL milestones so AI can answer any topic
+  let allCanonicalQAs = "";
+  for (const milestone of MILESTONES_CANONICAL) {
+    if (Array.isArray(milestone.qas) && milestone.qas.length > 0) {
+      const header = `--- ${milestone.shortSummary || milestone.id} ---`;
+      const qaLines = milestone.qas
+        .map((qa) => `Hỏi: ${qa.q}\nĐáp: ${qa.a}`)
+        .join("\n\n");
+      allCanonicalQAs += `\n${header}\n${qaLines}\n`;
+    }
   }
 
   return [
     "Bạn là hướng dẫn viên ảo (NPC) trong không gian Triển lãm 3D học tập Tư tưởng Hồ Chí Minh về Đại đoàn kết dân tộc.",
     "Nhiệm vụ của bạn là trả lời các câu hỏi của người dùng dựa trên nội dung trong Giáo trình Tư tưởng Hồ Chí Minh (NXB Chính trị Quốc gia Sự thật).",
     "",
-    "CÁC NGUYÊN TẮC TRẢ LỜI QUAN TRỌNG:",
-    "1. Chỉ dùng kiến thức đã cung cấp trong phần giáo trình và dữ liệu mốc học tập bên dưới. Không dùng kiến thức ngoài và không suy diễn thêm.",
-    "2. Trả lời đúng trọng tâm câu hỏi, đi thẳng vào ý chính cốt lõi, tránh lan man.",
-    "3. Diễn đạt theo ý, không chép nguyên văn dài từ giáo trình, không cần trích dẫn nguồn.",
-    "4. Nếu câu hỏi có từ 2 ý trở lên, phải trả lời ĐỦ từng ý, không bỏ sót ý nào.",
-    "5. Với câu hỏi nhiều ý, trình bày theo dạng: 'Ý 1:', 'Ý 2:' (mỗi ý 1-2 câu, đi thẳng vào trọng tâm).",
-    "6. Độ dài ưu tiên: 2-6 câu ngắn gọn, mạch lạc, dễ hiểu.",
-    "7. Không trả lời chung chung. Mỗi câu phải gắn trực tiếp với yêu cầu người dùng vừa hỏi.",
-    "8. Nếu câu hỏi mơ hồ hoặc thiếu dữ liệu từ giáo trình, hãy nói rõ chưa đủ thông tin và đề nghị người dùng hỏi cụ thể hơn.",
-    "9. Nếu người chơi hỏi về thử thách/quiz, hãy khuyên họ mở phần thử thách tương ứng trên màn hình game.",
+    "CÁC NGUYÊN TẮC TRẢ LỜI BẮT BUỘC:",
+    "1. Chỉ dùng kiến thức đã cung cấp trong phần giáo trình và dữ liệu mốc học tập bên dưới. Không dùng kiến thức ngoài.",
+    "2. ĐỌC KỸ câu hỏi trước khi trả lời. Xác định RÕ kiểu câu hỏi:",
+    "   - 'Vì sao / Tại sao' → PHẢI nêu RÕ các LÝ DO, NGUYÊN NHÂN cụ thể.",
+    "   - 'Là gì / Bao gồm gì' → PHẢI định nghĩa, liệt kê đầy đủ.",
+    "   - 'Như thế nào / Làm thế nào' → PHẢI trình bày cách thức, phương pháp.",
+    "   - TUYỆT ĐỐI không trả lời lạc sang nội dung khác với yêu cầu.",
+    "3. CÂU HỎI NHIỀU VẾ (có 2 dấu ? trở lên hoặc nhiều ý): PHẢI trả lời TỪNG VẾ riêng biệt, trình bày:",
+    "   Vế 1: [trả lời vế 1 đầy đủ]",
+    "   Vế 2: [trả lời vế 2 đầy đủ]",
+    "   KHÔNG ĐƯỢC bỏ sót bất kỳ vế nào.",
+    "4. Diễn đạt theo ý, không chép nguyên văn dài từ giáo trình.",
+    "5. Độ dài: 3-8 câu, ngắn gọn, mạch lạc, đầy đủ.",
+    "6. Không trả lời chung chung hay chỉ liệt kê tiêu đề mục. Mỗi câu phải có NỘI DUNG CỤ THỂ trực tiếp trả lời câu hỏi.",
+    "7. Nếu câu hỏi ngoài phạm vi giáo trình, nói rõ chưa đủ thông tin.",
+    "8. Nếu người chơi hỏi về thử thách/quiz, hãy khuyên họ mở phần thử thách trên màn hình game.",
     "",
     "KIẾN THỨC CỐT LÕI TỪ GIÁO TRÌNH TƯ TƯỞNG HỒ CHÍ MINH:",
     TEXTBOOK_KNOWLEDGE,
     "",
-    canonicalQAs
-      ? `Dưới đây là một số câu hỏi thường gặp và câu trả lời chuẩn hóa liên quan đến chủ đề này. Hãy tham khảo chúng để trả lời chính xác, giữ đúng tinh thần và nội dung lịch sử:\n${canonicalQAs}`
+    allCanonicalQAs
+      ? `NGÂN HÀNG CÂU HỎI - ĐÁP CHUẨN HÓA (tham khảo để trả lời chính xác):\n${allCanonicalQAs}`
       : "",
     "",
     `Chủ đề hiện tại bạn đang đứng: ${title}.`,
@@ -329,13 +414,19 @@ function isMultiIntentQuestion(userText) {
   const questionMarks = (raw.match(/\?/g) || []).length;
   if (questionMarks >= 2) return true;
 
+  // Check for conjunctions splitting two intents ("và", "đồng thời", "ngoài ra")
+  const conjunctionSplit = /\b(va|dong thoi|ngoai ra|ben canh do|mat khac)\b/.test(query);
+
   const intentHits = (
     query.match(
-      /\b(la gi|bao gom|gom nhung|the nao|nhu the nao|vi sao|tai sao|vai tro|y nghia|dieu kien|nguyen tac|phuong thuc)\b/g,
+      /\b(la gi|bao gom|gom nhung|the nao|nhu the nao|vi sao|tai sao|vai tro|y nghia|dieu kien|nguyen tac|phuong thuc|lam sao|nhu the nao|dung hoa|giai quyet)\b/g,
     ) || []
   ).length;
 
-  return intentHits >= 2;
+  if (intentHits >= 2) return true;
+  if (conjunctionSplit && intentHits >= 1) return true;
+
+  return false;
 }
 
 function formatFullMilestoneContent(milestone) {
@@ -400,17 +491,29 @@ function buildResponseFromContext(classInfo, userText) {
     return "Bạn có thể hỏi tôi về ý nghĩa, bối cảnh, hoặc các mối liên hệ giữa những mốc đang có trong triển lãm.";
   }
 
-  // Check for exact or high-similarity canonical QA match first
-  const qaMatch = findExactOrCloseQAMatch(userText, canonical);
-  if (qaMatch) {
-    return qaMatch.a;
+  // 1. MULTI-PART QUESTION: split by '?' and find QA for each part
+  const multiMatches = findMultiPartQAMatches(userText);
+  if (multiMatches.length >= 2) {
+    return multiMatches
+      .map((qa, i) => `Vế ${i + 1}: ${qa.a}`)
+      .join("\n\n");
+  }
+  // Single QA match
+  if (multiMatches.length === 1) {
+    return multiMatches[0].a;
   }
 
-  if (/quiz|thu thach|cau hoi|kiem tra/.test(query)) {
+  // 2. Quiz / challenge detection
+  if (/quiz|thu thach|kiem tra/.test(query)) {
     return "Nếu bạn muốn kiểm tra nhanh kiến thức, hãy mở phần thử thách tương ứng trong game.";
   }
 
-  // If user requests full content / title and content / details
+  // 3. Greeting
+  if (/\b(chao|hello|hi|xin chao)\b/.test(query) && query.length < 30) {
+    return "Xin chào. Bạn có thể hỏi quanh nội dung đang trưng bày hoặc chuyển sang mốc khác trong triển lãm.";
+  }
+
+  // 4. Full content request
   if (
     /chi tiet|day du|tat ca|tieu de|noi dung o moc|noi dung o phan|noi dung o bai|noi dung moc|con gi nua|ke tiep|tiep tuc|chi tiet hon/.test(
       query,
@@ -419,7 +522,17 @@ function buildResponseFromContext(classInfo, userText) {
     return formatFullMilestoneContent(milestone);
   }
 
-  if (/tom tat|tom|noi dung chinh|y nghia|vai tro|la gi|giup gi/.test(query)) {
+  // 5. For 'vì sao / tại sao / làm thế nào' — try harder to find a relevant QA across ALL milestones
+  if (/vi sao|tai sao|the nao|lam sao|dung hoa|giai quyet/.test(query)) {
+    // Search more aggressively across all milestones with lower threshold
+    for (const ms of MILESTONES_CANONICAL) {
+      const match = findExactOrCloseQAMatch(userText, ms, { lowerThreshold: true });
+      if (match) return match.a;
+    }
+  }
+
+  // 6. Summary / definition requests
+  if (/tom tat|noi dung chinh|y nghia chinh|vai tro chinh/.test(query)) {
     const milestoneSummary =
       milestone?.shortSummary || milestone?.summary || classInfo?.summary || "";
     return `${milestoneSummary}${quote ? ` Câu nhấn mạnh liên quan: “${quote.replace(/^“|”$/g, "")}”.` : ""}`;
@@ -477,7 +590,7 @@ export function createChatResponder() {
 
       const systemInstruction = buildSystemInstruction(activeInfo);
       const multiIntentGuard = isMultiIntentQuestion(userText)
-        ? "\n\nYÊU CẦU BỔ SUNG CHO CÂU HỎI HIỆN TẠI: Câu hỏi này có nhiều ý. BẮT BUỘC trả lời đủ từng ý theo định dạng 'Ý 1:', 'Ý 2:'..., không bỏ sót ý nào."
+        ? "\n\nCÂU HỎI HIỆN TẠI CÓ NHIỀU VẾ/Ý. BẮT BUỘC phải:\n- Tách và trả lời TỪNG VẾ riêng biệt\n- Trình bày: 'Vế 1: [nội dung]', 'Vế 2: [nội dung]'\n- KHÔNG bỏ sót bất kỳ vế nào\n- Mỗi vế phải có nội dung CỤ THỂ, không nói chung chung"
         : "";
       const contents = buildConversationSnapshot(history);
 
@@ -488,10 +601,10 @@ export function createChatResponder() {
           systemInstruction: `${systemInstruction}${multiIntentGuard}`,
           contents,
           generationConfig: {
-            temperature: 0.35,
-            topP: 0.95,
+            temperature: 0.25,
+            topP: 0.90,
             topK: 40,
-            maxOutputTokens: 220,
+            maxOutputTokens: 480,
           },
         });
 
